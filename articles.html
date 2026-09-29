@@ -36,20 +36,13 @@
         
         <div class="folding-screen-container js-enabled">
             <!-- 第一扇：见自己 -->
-            <div class="screen-panel" onclick="filterStage('见自己')" style="cursor: pointer;">
+            <div class="screen-panel">
                 <h2 class="panel-title">见自己</h2>
+                <div class="panel-options">
+                    <button class="filter-btn" onclick="filterCategory('今日杂谈', this)">今日杂谈</button>
+                    <button class="filter-btn" onclick="filterCategory('游记', this)">游记</button>
+                </div>
             </div>
-            
-            <!-- 第二扇：见天地 -->
-            <div class="screen-panel" onclick="filterStage('见天地')" style="cursor: pointer;">
-                <h2 class="panel-title">见天地</h2>
-            </div>
-            
-            <!-- 第三扇：见众生 -->
-            <div class="screen-panel" onclick="filterStage('见众生')" style="cursor: pointer;">
-                <h2 class="panel-title">见众生</h2>
-            </div>
-        </div>
             
             <!-- 第二扇：见天地 -->
             <div class="screen-panel">
@@ -65,7 +58,7 @@
                 <h2 class="panel-title">见众生</h2>
                 <div class="panel-options">
                     <button class="filter-btn" onclick="filterCategory('魔鬼契约', this)">魔鬼契约</button>
-                    <button class="filter-btn" onclick="filterCategory('all', this)">[ 展开全部 ]</button>
+                    <button class="filter-btn" onclick="filterCategory('all', this)">全部</button>
                 </div>
             </div>
         </div>
@@ -161,21 +154,17 @@
     </footer>
 
     <script>
-        function filterStage(stage) {
+        function filterCategory(cat, btn) {
+            // 防止冒泡触发折叠
+            if (event) event.stopPropagation();
+
             const grid = document.querySelector('.article-grid');
             grid.style.display = 'flex';
             
             grid.style.opacity = '0';
             setTimeout(() => {
                 document.querySelectorAll('.chapter-item').forEach(article => {
-                    const cat = article.getAttribute('data-category');
-                    let match = false;
-                    
-                    if (stage === '见自己' && (cat === '今日杂谈' || cat === '游记')) match = true;
-                    if (stage === '见天地' && (cat === '寓言' || cat === '糖果屋')) match = true;
-                    if (stage === '见众生' && (cat === '魔鬼契约')) match = true;
-                    
-                    if (match) {
+                    if (cat === 'all' || article.getAttribute('data-category') === cat) {
                         article.style.display = 'flex';
                     } else {
                         article.style.display = 'none';
@@ -194,4 +183,5 @@
     <script src="main.js"></script>
 </body>
 </html>
+
 

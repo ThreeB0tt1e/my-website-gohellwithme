@@ -902,7 +902,7 @@ body.page-transitioning-out {
 }
 
 /* =========================================
-   🎞️ 宫二屏风分类 (Gong Er Folding Screen)
+   🎞️ 宫二屏风分类 (极致轻盈版)
    ========================================= */
 .gong-er-quote {
     text-align: center;
@@ -910,64 +910,47 @@ body.page-transitioning-out {
     font-style: italic;
     color: var(--text-muted);
     font-size: 1.1rem;
-    margin: 20px 0 40px;
+    margin: 20px 0 60px;
     letter-spacing: 2px;
 }
-.gong-er-quote .author {
-    font-size: 0.9rem;
-    margin-left: 10px;
-}
 
-/* 屏风外框 */
 .folding-screen-container {
     display: flex;
     width: 100%;
     height: 55vh;
     min-height: 400px;
-    gap: 0; /* 无缝相连 */
+    gap: 0;
     margin-bottom: 60px;
-    border: 6px solid var(--text-color); /* 粗重边框模拟实木框架 */
-    padding: 2px;
-    background: var(--text-color);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.1); /* 整体在地面的投影 */
+    /* 去除所有粗重边框，只留上下极细的分割线 */
+    border-top: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    background: transparent;
 }
 
-/* 屏风单扇纸面 */
+[data-theme="dark"] .folding-screen-container {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
 .screen-panel {
     flex: 1;
-    background: var(--bg-color); /* 纸面颜色 */
-    border-right: 1px solid rgba(0,0,0,0.1); /* 折痕处的缝隙 */
+    background: transparent;
+    border-right: 1px solid rgba(0,0,0,0.05);
     position: relative;
-    cursor: default;
-    transition: flex 0.8s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.8s ease;
+    cursor: pointer;
+    transition: flex 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    /* 奇数扇阴影：左亮右暗，模拟折叠角度 */
-    box-shadow: inset -15px 0 20px rgba(0,0,0,0.04), inset 15px 0 20px rgba(255,255,255,0.8);
 }
+
+[data-theme="dark"] .screen-panel {
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+
 .screen-panel:last-child {
     border-right: none;
-}
-/* 偶数扇阴影反转，形成 \/ 折叠感 */
-.screen-panel:nth-child(even) {
-    box-shadow: inset 15px 0 20px rgba(0,0,0,0.04), inset -15px 0 20px rgba(255,255,255,0.8);
-}
-
-/* 暗黑模式下的阴影适配 */
-[data-theme="dark"] .screen-panel {
-    box-shadow: inset -15px 0 20px rgba(0,0,0,0.4), inset 15px 0 20px rgba(255,255,255,0.02);
-}
-[data-theme="dark"] .screen-panel:nth-child(even) {
-    box-shadow: inset 15px 0 20px rgba(0,0,0,0.4), inset -15px 0 20px rgba(255,255,255,0.02);
-}
-
-/* 悬停展开时，折叠被抚平 */
-.screen-panel:hover {
-    flex: 3;
-    background: var(--card-bg);
-    box-shadow: inset -2px 0 10px rgba(0,0,0,0.01), inset 2px 0 10px rgba(255,255,255,0.1) !important;
 }
 
 /* 竖排大字 */
@@ -978,14 +961,9 @@ body.page-transitioning-out {
     letter-spacing: 0.5em;
     font-family: "Noto Serif SC", serif;
     color: var(--text-color);
-    transition: all 0.8s ease;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     margin: 0;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.05); /* 文字轻微浮雕感 */
-}
-
-.screen-panel:hover .panel-title {
-    opacity: 0.05; /* 展开后大字化作背景暗纹 */
-    transform: translateX(-80px) scale(1.5);
+    opacity: 0.8;
 }
 
 /* 内部按钮选项 */
@@ -993,93 +971,57 @@ body.page-transitioning-out {
     position: absolute;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateX(20px);
     transition: all 0.6s ease;
     pointer-events: none;
     z-index: 2;
+    left: 50%;
 }
 
-.screen-panel:hover .panel-options {
+/* 悬停/点击展开时的动画 */
+.screen-panel:hover, .screen-panel.active {
+    flex: 3;
+}
+
+.screen-panel:hover .panel-title, .screen-panel.active .panel-title {
+    opacity: 0.08; /* 化作淡淡的水印背景 */
+    transform: translateX(-120px) scale(2);
+}
+
+.screen-panel:hover .panel-options, .screen-panel.active .panel-options {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(-30px); /* 和左边的水印文字呼应 */
     pointer-events: auto;
-    transition-delay: 0.2s;
+    transition-delay: 0.1s;
 }
 
 .panel-options .filter-btn {
     background: transparent;
     border: none;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-color);
-    padding: 10px 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    color: var(--text-muted);
+    padding: 5px 0 15px 0;
     font-size: 1.1rem;
-    border-radius: 0;
     cursor: pointer;
     transition: all 0.4s ease;
     font-family: "Noto Serif SC", serif;
     letter-spacing: 2px;
+    text-align: center;
+    width: 120px;
 }
 
-.panel-options .filter-btn:hover,
-.panel-options .filter-btn.active {
-    background: transparent;
-    color: var(--primary-color);
-    border-bottom: 1px solid var(--primary-color);
-    transform: translateX(10px); /* 悬停时向右微移，非常有格调 */
+[data-theme="dark"] .panel-options .filter-btn {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-/* 隐藏文章列表直到选择 */
-.article-grid {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-    display: none;
-}
-.article-grid.show-articles {
-    opacity: 1;
-    transform: translateY(0);
-    display: grid;
+.panel-options .filter-btn:hover {
+    color: var(--text-color);
+    border-bottom-color: var(--text-color);
 }
 
-
-
-
-/* =========================================
-   🎞️ 首页羊皮卷双层边框
-   ========================================= */
-body.landing-page {
-    position: relative;
-    box-sizing: border-box;
-}
-
-/* 首页：中世纪羊皮卷/精装书双层线框 */
-body.landing-page::before {
-    content: "";
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
-    border: 1px solid var(--text-color);
-    opacity: 0.15; /* 外层稍深 */
-    pointer-events: none;
-    z-index: 10;
-}
-
-body.landing-page::after {
-    content: "";
-    position: absolute;
-    top: 26px; /* 与外线相距 6px */
-    left: 26px;
-    right: 26px;
-    bottom: 26px;
-    border: 1px solid var(--text-color);
-    opacity: 0.05; /* 内层极淡 */
-    pointer-events: none;
-    z-index: 10;
-}
+/* 移除旧的 unfolded folded */
 
 /* =========================================
    章节列表 (魔鬼契约 & 目录通用)

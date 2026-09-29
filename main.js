@@ -165,3 +165,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+
+// === 4. 电影级网页过场动画 ===
+document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('a[href]');
+    
+    links.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const target = link.getAttribute('href');
+            
+            // 排除外部链接、锚点、新窗口或快捷键点击
+            if (
+                target.startsWith('http') || 
+                target.startsWith('#') || 
+                target.startsWith('mailto:') ||
+                link.getAttribute('target') === '_blank' ||
+                e.ctrlKey || e.metaKey
+            ) {
+                return;
+            }
+            
+            e.preventDefault();
+            
+            // 给整个页面加上淡出动画
+            document.body.classList.add('page-transitioning-out');
+            
+            // 延迟跳转，等待动画播放完毕
+            setTimeout(() => {
+                window.location.href = target;
+            }, 350);
+        });
+    });
+});
+
+// 修复 Safari/手机浏览器 点击“后退”按钮时页面卡在透明状态的问题 (BFCache)
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted || document.body.classList.contains('page-transitioning-out')) {
+        document.body.classList.remove('page-transitioning-out');
+    }
+});

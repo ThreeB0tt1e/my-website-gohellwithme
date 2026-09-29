@@ -11,7 +11,6 @@ for filename in os.listdir(directory):
         with open(filepath, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # Add ?v=timestamp to bypass cache
         content = re.sub(r'href="styles\.css(\?v=\d+)?"', f'href="styles.css?v={timestamp}"', content)
         content = re.sub(r'src="main\.js(\?v=\d+)?"', f'src="main.js?v={timestamp}"', content)
         

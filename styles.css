@@ -1045,3 +1045,38 @@ body.page-transitioning-out {
 
 
 
+
+/* =========================================
+   🎞️ 首页羊皮卷双层边框
+   ========================================= */
+body.landing-page {
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* 首页：中世纪羊皮卷/精装书双层线框 */
+body.landing-page::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border: 1px solid var(--text-color);
+    opacity: 0.15; /* 外层稍深 */
+    pointer-events: none;
+    z-index: 10;
+}
+
+body.landing-page::after {
+    content: "";
+    position: absolute;
+    top: 26px; /* 与外线相距 6px */
+    left: 26px;
+    right: 26px;
+    bottom: 26px;
+    border: 1px solid var(--text-color);
+    opacity: 0.05; /* 内层极淡 */
+    pointer-events: none;
+    z-index: 10;
+}

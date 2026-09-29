@@ -347,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. 创建触发按钮 (悬浮在底部)
     const triggerBtn = document.createElement('button');
-    triggerBtn.innerText = "生成金句书签";
+    triggerBtn.innerText = "分享所谓的“金句”";
     triggerBtn.style.cssText = "position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #111827; color: #fff; padding: 12px 24px; border-radius: 40px; font-family: 'Noto Serif SC', serif; font-size: 0.9rem; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; transition: all 0.3s ease; z-index: 10000; cursor: pointer; pointer-events: none;";
     document.body.appendChild(triggerBtn);
 
@@ -497,3 +497,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+

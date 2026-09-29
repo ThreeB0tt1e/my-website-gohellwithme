@@ -3,380 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>网站后台管理</title>
+    <title>Empathy - 后台发布</title>
     <meta name="robots" content="noindex, nofollow">
-    <meta property="og:title" content="Empathy">
-    <meta property="og:description" content="”pathy”意思是「感覺」，empathy的字首”em”是「在裡面」的意思，你的「同理」就像在對方心裡頭的感受">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://gohellwithme.xyz/">
-    <meta property="og:image" content="https://gohellwithme.xyz/cover.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="stylesheet" href="styles.css">
     <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --card-bg: #ffffff;
+            --text-color: #2c2c2c;
+            --text-muted: #888888;
+            --border-color: #e5e5e5;
+            --primary-color: #1a1a1a;
+        }
         body {
-            background-color: #f3f4f6;
+            font-family: "Noto Serif SC", serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
         }
         .admin-container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 30px;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 500px;
         }
-        .admin-container h1 {
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
             text-align: center;
-            margin-bottom: 20px;
-            color: #111827;
-        }
-        .tabs {
-            display: flex;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e5e7eb;
-        }
-        .tab-btn {
-            padding: 10px 20px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            color: #6b7280;
-            margin-bottom: -2px;
-            border-bottom: 2px solid transparent;
-        }
-        .tab-btn.active {
-            color: #2563eb;
-            border-bottom: 2px solid #2563eb;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
+            margin-bottom: 30px;
+            font-style: italic;
         }
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 600;
-            color: #374151;
+            font-weight: bold;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
-        input[type="text"], textarea {
+        input[type="text"], input[type="password"], textarea {
             width: 100%;
             padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             font-family: inherit;
             font-size: 1rem;
+            background: transparent;
             box-sizing: border-box;
+            transition: border-color 0.3s;
         }
-        input[type="text"]:focus, textarea:focus {
+        input:focus, textarea:focus {
             outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+            border-color: var(--primary-color);
         }
         textarea {
-            height: 250px;
             resize: vertical;
+            min-height: 100px;
         }
-        button.action-btn {
-            background-color: #2563eb;
+        button {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
             color: white;
             border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 6px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-family: inherit;
             cursor: pointer;
-            width: 100%;
-            transition: background-color 0.2s;
+            transition: background 0.3s, transform 0.1s;
         }
-        button.action-btn:hover {
-            background-color: #1d4ed8;
+        button:hover {
+            background: #333;
         }
-        #editor-wrapper {
-            display: none;
-            margin-top: 30px;
+        button:active {
+            transform: scale(0.98);
         }
-        .error-message {
-            color: #ef4444;
-            font-weight: bold;
+        #status {
+            margin-top: 20px;
             text-align: center;
-            margin-top: 10px;
-        }
-        .hint {
-            font-size: 0.85rem;
-            color: #6b7280;
-            margin-top: 4px;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <div class="admin-container">
-        <h1>🛠️ 网站后台管理</h1>
-        <p style="text-align: center; color: #4b5563; margin-bottom: 30px;">
-            这是一个纯前端的轻量管理界面。因为安全原因，每次打开都需要重新授权访问网站所在的文件夹。
-        </p>
-        
-        <div id="auth-section">
-            <button class="action-btn" onclick="selectFolder()">📁 第一步：选择网站所在文件夹 (D:\article-sharing-site)</button>
-            <p id="auth-status" class="error-message"></p>
-        </div>
 
-        <div id="editor-wrapper">
-            <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('article-tab')">✍️ 发布新文章</button>
-                <button class="tab-btn" onclick="switchTab('book-tab')">📖 发布新书评 (三分钟文青)</button>
-            </div>
-
-            <!-- 文章编辑器 -->
-            <div id="article-tab" class="tab-content active">
-                <div class="form-group">
-                    <label for="title">文章标题</label>
-                    <input type="text" id="title" placeholder="例如：我的第一篇博客">
-                </div>
-                
-                <div class="form-group">
-                    <label for="filename">文章文件名</label>
-                    <input type="text" id="filename" placeholder="例如：my-first-blog">
-                    <div class="hint">只能是英文、数字或连字符（-），最终会生成 .html 文件</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="category">分类 / 系列（选填）</label>
-                    <input type="text" id="category" placeholder="例如：魔鬼契约、随笔、教程...">
-                </div>
-                
-                <div class="form-group">
-                    <label for="summary">文章摘要</label>
-                    <textarea id="summary" style="height: 100px;" placeholder="简短描述这篇文章的内容，将显示在首页列表..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="content">正文内容</label>
-                    <textarea id="content" placeholder="在这里写下你的内容...
-
-段落之间请空一行，会自动分段。"></textarea>
-                </div>
-                
-                <button class="action-btn" onclick="publishArticle()" id="publish-article-btn">🚀 立即发布文章</button>
-            </div>
-
-            <!-- 书评编辑器 -->
-            <div id="book-tab" class="tab-content">
-                <div class="form-group">
-                    <label for="book-title">书名</label>
-                    <input type="text" id="book-title" placeholder="例如：《百年孤独》">
-                </div>
-                
-                <div class="form-group">
-                    <label for="book-tag">标签 / 状态</label>
-                    <input type="text" id="book-tag" placeholder="例如：五星推荐 / 正在阅读 / 毒草预警">
-                </div>
-                
-                <div class="form-group">
-                    <label for="book-content">书评内容</label>
-                    <textarea id="book-content" placeholder="写下你的毒舌或赞美...
-段落之间请空一行，会自动分段。"></textarea>
-                </div>
-                
-                <button class="action-btn" onclick="publishBook()" id="publish-book-btn">📚 立即发布书评</button>
-            </div>
-        </div>
+<div class="admin-container">
+    <h1>Empathy CMS</h1>
+    
+    <div class="form-group">
+        <label>授权密钥 (Token)</label>
+        <input type="password" id="token" placeholder="输入你的 GitHub Token" autocomplete="off">
     </div>
 
-    <script>
-        let dirHandle;
+    <div class="form-group">
+        <label>书名</label>
+        <input type="text" id="book-title" placeholder="例如：《挪威的森林》">
+    </div>
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('active');
+    <div class="form-group">
+        <label>我心情</label>
+        <textarea id="book-mood" placeholder="极度私密的情绪..."></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>我说白了</label>
+        <textarea id="book-summary" placeholder="理智的情节拆解..."></textarea>
+    </div>
+
+    <button id="publish-btn">刻下契约 (发布)</button>
+    <div id="status"></div>
+</div>
+
+<script>
+    // 页面加载时读取存过的 token
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedToken = localStorage.getItem('empathy_github_token');
+        if (savedToken) document.getElementById('token').value = savedToken;
+    });
+
+    document.getElementById('publish-btn').addEventListener('click', async () => {
+        const token = document.getElementById('token').value.trim();
+        const title = document.getElementById('book-title').value.trim();
+        const mood = document.getElementById('book-mood').value.trim();
+        const summary = document.getElementById('book-summary').value.trim();
+        const statusEl = document.getElementById('status');
+
+        if (!token || !title || !mood || !summary) {
+            statusEl.innerText = "请填写所有字段";
+            statusEl.style.color = "red";
+            return;
         }
 
-        async function selectFolder() {
-            if (!window.showDirectoryPicker) {
-                document.getElementById('auth-status').innerHTML = '错误：您的浏览器不支持该功能。请使用最新版 Chrome 或 Edge 浏览器打开此页面。';
-                return;
-            }
-            try {
-                dirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
-                document.getElementById('auth-section').style.display = 'none';
-                document.getElementById('editor-wrapper').style.display = 'block';
-            } catch (err) {
-                console.error(err);
-                document.getElementById('auth-status').innerText = "未授权，无法继续。请点击按钮并允许访问。";
-            }
+        // 保存 token 到本地，以后不用每次都填
+        localStorage.setItem('empathy_github_token', token);
+
+        statusEl.innerText = "正在通过虚空连接 GitHub 服务器...";
+        statusEl.style.color = "var(--text-muted)";
+
+        const repo = "ThreeB0tt1e/my-website-gohellwithme";
+        const path = "books.html";
+        const apiUrl = \https://api.github.com/repos/\/contents/\\;
+
+        try {
+            // 1. 获取现在的 books.html
+            const getRes = await fetch(apiUrl, {
+                headers: { 'Authorization': \	oken \\ }
+            });
+            
+            if (!getRes.ok) throw new Error("获取文件失败，请检查 Token 是否有效且拥有 repo 权限");
+            
+            const fileData = await getRes.json();
+            // GitHub 的内容是 base64 编码的，需要解码
+            const currentContent = decodeURIComponent(escape(atob(fileData.content)));
+            const sha = fileData.sha;
+
+            // 2. 生成新卡片的 HTML
+            const newCard = \
+            <!-- 单本书籍模块 -->
+            <div class="book-review-card" style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 35px; border-radius: 4px; box-shadow: 0 5px 20px rgba(0,0,0,0.02); position: relative;">
+                <h3 class="book-title" style="font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: 1.5rem; color: var(--text-color); margin: 0 0 25px 0; padding-bottom: 15px; border-bottom: 1px dashed var(--border-color);">
+                    \
+                </h3>
+                <div class="book-meta" style="display: flex; flex-direction: column; gap: 20px;">
+                    <div class="meta-row" style="display: flex; align-items: flex-start; line-height: 1.8;">
+                        <span class="meta-label" style="font-family: 'Noto Serif SC', serif; font-weight: bold; color: var(--text-muted); min-width: 90px; font-size: 0.95rem; margin-right: 15px;">我心情：</span>
+                        <span class="meta-content" style="color: var(--text-color); flex: 1; font-style: italic;">
+                            \
+                        </span>
+                    </div>
+                    <div class="meta-row" style="display: flex; align-items: flex-start; line-height: 1.8;">
+                        <span class="meta-label" style="font-family: 'Noto Serif SC', serif; font-weight: bold; color: var(--text-muted); min-width: 90px; font-size: 0.95rem; margin-right: 15px;">我说白了：</span>
+                        <span class="meta-content" style="color: var(--text-color); flex: 1; text-align: justify;">
+                            \
+                        </span>
+                    </div>
+                </div>
+            </div>\;
+
+            // 3. 寻找插入点 (在 <!-- 书单模块列表 --> 所在的 div 后面)
+            const insertPoint = '<div class="book-review-list js-enabled" style="display: flex; flex-direction: column; gap: 40px; margin-bottom: 60px;">';
+            if (!currentContent.includes(insertPoint)) throw new Error("找不到插入点，可能 books.html 结构被破坏");
+            
+            const newContent = currentContent.replace(insertPoint, insertPoint + "\\n" + newCard);
+
+            // 4. 将新内容重新转码为 base64
+            const encodedContent = btoa(unescape(encodeURIComponent(newContent)));
+
+            // 5. 提交回 GitHub
+            statusEl.innerText = "正在刻下契约并同步全网...";
+            const putRes = await fetch(apiUrl, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': \	oken \\,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: \eat: add new book review (\) via CMS\,
+                    content: encodedContent,
+                    sha: sha
+                })
+            });
+
+            if (!putRes.ok) throw new Error("上传失败，可能是网络问题");
+
+            statusEl.innerText = "✨ 契约已生效！新书单已发布到外网。你可以去刷新页面了。";
+            statusEl.style.color = "green";
+            
+            // 清空表单
+            document.getElementById('book-title').value = '';
+            document.getElementById('book-mood').value = '';
+            document.getElementById('book-summary').value = '';
+
+        } catch (error) {
+            statusEl.innerText = "出错了：" + error.message;
+            statusEl.style.color = "red";
         }
-
-        async function publishArticle() {
-            const title = document.getElementById('title').value.trim();
-            let filename = document.getElementById('filename').value.trim();
-            const summary = document.getElementById('summary').value.trim();
-            const content = document.getElementById('content').value.trim();
-            const category = document.getElementById('category').value.trim();
-            
-            if (!title || !filename || !summary || !content) {
-                alert("请填写所有内容！");
-                return;
-            }
-            
-            filename = filename.toLowerCase().replace(/[^a-z0-9-]/g, '');
-            if (!filename) {
-                alert("文件名不合法，请使用英文字母或数字。");
-                return;
-            }
-            const cleanFilename = filename + '.html';
-            const date = new Date().toISOString().split('T')[0];
-            
-            const btn = document.getElementById('publish-article-btn');
-            btn.innerText = "发布中，请稍候...";
-            btn.disabled = true;
-
-            try {
-                const templateHandle = await dirHandle.getFileHandle('article-template.html');
-                const templateFile = await templateHandle.getFile();
-                const templateHtml = await templateFile.text();
-                
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(templateHtml, 'text/html');
-                
-                doc.title = `${title} - Empathy`;
-                doc.querySelector('.article-header h1').textContent = title;
-                doc.querySelector('.meta').textContent = `发布于 ${date} • 作者：Admin`;
-                
-                const contentDiv = doc.querySelector('.content');
-                const paragraphs = content.split(/\n\s*\n/);
-                contentDiv.innerHTML = paragraphs.map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
-                
-                const newHtml = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
-                
-                const newFileHandle = await dirHandle.getFileHandle(cleanFilename, { create: true });
-                const writable = await newFileHandle.createWritable();
-                await writable.write(newHtml);
-                await writable.close();
-                
-                const indexHandle = await dirHandle.getFileHandle('articles.html');
-                const indexFile = await indexHandle.getFile();
-                const indexHtml = await indexFile.text();
-                
-                const indexDoc = parser.parseFromString(indexHtml, 'text/html');
-                const articleList = indexDoc.querySelector('.article-list');
-                
-                const newArticle = indexDoc.createElement('article');
-                newArticle.className = 'card';
-                if (category) newArticle.setAttribute('data-category', category);
-                const categoryHtml = category ? `<div class="category-badge">${category}</div>` : '';
-                
-                newArticle.innerHTML = `
-                    ${categoryHtml}
-                    <h2><a href="${cleanFilename}">${title}</a></h2>
-                    <div class="meta">发布于 ${date}</div>
-                    <p class="summary">${summary}</p>
-                    <a href="${cleanFilename}" class="read-more">阅读全文 →</a>
-                `;
-                
-                if (articleList.firstChild) {
-                    articleList.insertBefore(newArticle, articleList.firstChild);
-                } else {
-                    articleList.appendChild(newArticle);
-                }
-                
-                const newIndexHtml = '<!DOCTYPE html>\n' + indexDoc.documentElement.outerHTML;
-                const indexWritable = await indexHandle.createWritable();
-                await indexWritable.write(newIndexHtml);
-                await indexWritable.close();
-                
-                alert("🎉 文章发布成功！");
-                document.getElementById('title').value = '';
-                document.getElementById('filename').value = '';
-                document.getElementById('summary').value = '';
-                document.getElementById('content').value = '';
-                
-            } catch (err) {
-                console.error(err);
-                alert("发布失败：" + err.message);
-            } finally {
-                btn.innerText = "🚀 立即发布文章";
-                btn.disabled = false;
-            }
-        }
-
-        async function publishBook() {
-            const title = document.getElementById('book-title').value.trim();
-            const tag = document.getElementById('book-tag').value.trim();
-            const content = document.getElementById('book-content').value.trim();
-            
-            if (!title || !tag || !content) {
-                alert("请填写书名、标签和内容！");
-                return;
-            }
-            
-            const btn = document.getElementById('publish-book-btn');
-            btn.innerText = "发布中，请稍候...";
-            btn.disabled = true;
-
-            try {
-                // 读取 books.html
-                const booksHandle = await dirHandle.getFileHandle('books.html');
-                const booksFile = await booksHandle.getFile();
-                const booksHtml = await booksFile.text();
-                
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(booksHtml, 'text/html');
-                
-                const bookList = doc.querySelector('.book-list');
-                
-                // 移除“示例占位符”（如果有的话）
-                const placeholder = Array.from(bookList.children).find(el => el.querySelector('h2') && el.querySelector('h2').textContent === '示例书籍名称');
-                if (placeholder) {
-                    placeholder.remove();
-                }
-
-                // 简单的分段处理
-                const paragraphs = content.split(/\n\s*\n/);
-                const contentHtml = paragraphs.map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
-
-                const newBook = doc.createElement('div');
-                newBook.className = 'book-card';
-                newBook.innerHTML = `
-                    <h2>${title}</h2>
-                    <div class="book-tag">${tag}</div>
-                    <div class="book-content">${contentHtml}</div>
-                `;
-                
-                // 将新书评插入到列表最上方
-                if (bookList.firstChild) {
-                    bookList.insertBefore(newBook, bookList.firstChild);
-                } else {
-                    bookList.appendChild(newBook);
-                }
-                
-                const newBooksHtml = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
-                const writable = await booksHandle.createWritable();
-                await writable.write(newBooksHtml);
-                await writable.close();
-                
-                alert("🎉 书评发布成功！");
-                document.getElementById('book-title').value = '';
-                document.getElementById('book-tag').value = '';
-                document.getElementById('book-content').value = '';
-                
-            } catch (err) {
-                console.error(err);
-                alert("发布失败：" + err.message);
-            } finally {
-                btn.innerText = "📚 立即发布书评";
-                btn.disabled = false;
-            }
-        }
-    </script>
+    });
+</script>
 </body>
 </html>
-
-
-

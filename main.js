@@ -1,4 +1,5 @@
-﻿document.addEventListener('DOMContentLoaded', async () => {
+﻿document.documentElement.classList.add('js-enabled');
+document.addEventListener('DOMContentLoaded', async () => {
     // 1. 回到顶部按钮
     const backToTop = document.createElement('button');
     backToTop.id = 'back-to-top';
@@ -163,3 +164,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+

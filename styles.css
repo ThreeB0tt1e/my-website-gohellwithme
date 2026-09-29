@@ -722,13 +722,19 @@ em, i {
 }
 
 /* 给列表卡片和文章内容加上渐显 */
-.card, .article-content, .reader-submit-box, .comments-section {
+.js-enabled .card, .js-enabled .article-content, .js-enabled .reader-submit-box, .js-enabled .comments-section {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.card.visible, .article-content.visible, .reader-submit-box.visible, .comments-section.visible {
+/* Fallback for when JS is blocked or slow */
+.card, .article-content, .reader-submit-box, .comments-section {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.js-enabled .card.visible, .js-enabled .article-content.visible, .js-enabled .reader-submit-box.visible, .js-enabled .comments-section.visible {
     opacity: 1;
     transform: translateY(0);
 }
@@ -833,3 +839,4 @@ body {
         font-size: 1rem;
     }
 }
+

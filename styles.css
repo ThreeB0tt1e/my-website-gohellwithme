@@ -266,7 +266,7 @@ footer {
 
 .hero h1 {
     font-weight: 500;
-    font-size: clamp(3.5rem, 7vw, 5.5rem);
+    font-size: clamp(2.5rem, 5vw, 4rem);
     letter-spacing: 2px;
     margin-bottom: 50px;
     position: relative;
@@ -384,7 +384,7 @@ footer {
 
     .hero h1 {
     font-weight: 500;
-    font-size: clamp(3.5rem, 7vw, 5.5rem);
+    font-size: clamp(2.5rem, 5vw, 4rem);
     letter-spacing: 2px;
     margin-bottom: 50px;
     position: relative;
@@ -472,7 +472,7 @@ footer {
 @media (max-width: 400px) {
     .hero h1 {
     font-weight: 500;
-    font-size: clamp(3.5rem, 7vw, 5.5rem);
+    font-size: clamp(2.5rem, 5vw, 4rem);
     letter-spacing: 2px;
     margin-bottom: 50px;
     position: relative;
@@ -529,7 +529,7 @@ em, i {
 /* 首页 Empathy 标题 */
 .empathy-title {
     font-family: "Georgia", "Times New Roman", serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: normal;
     color: rgba(0, 0, 0, 0.03);
     text-transform: uppercase;
@@ -546,7 +546,7 @@ em, i {
 /* 首页 Say Yes 标题 */
 .hero h1 {
     font-weight: 500;
-    font-size: clamp(3.5rem, 7vw, 5.5rem);
+    font-size: clamp(2.5rem, 5vw, 4rem);
     letter-spacing: 2px;
     margin-bottom: 50px;
     position: relative;
@@ -574,6 +574,7 @@ em, i {
         transform: translate(-50%, -100%);
     }
 }
+
 
 
 

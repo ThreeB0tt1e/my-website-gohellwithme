@@ -3,97 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>三分钟让你成为文青 - Empathy</title>
+    <title>Empathy - 三分钟让你成为文青</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .book-list {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            margin-top: 20px;
-        }
-        .book-card {
-            background: #fff;
-            border-radius: 8px;
-            padding: 24px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border: 1px solid #e5e7eb;
-        }
-        .book-card h2 {
-            margin-top: 0;
-            color: #1f2937;
-            font-size: 1.5rem;
-            border-bottom: 2px solid #e5e7eb;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-        .book-tag {
-            display: inline-block;
-            background: #f8fafc;
-            color: #475569;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            border: 1px solid #e2e8f0;
-        }
-        .book-content {
-            color: #4b5563;
-            line-height: 1.7;
-        }
-        
-        /* 读者互动投稿区样式 */
-        .reader-submit-box {
-            background: #f8fafc;
-            border: 2px dashed #cbd5e1;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 40px;
-            text-align: center;
-        }
-        .reader-submit-box h3 {
-            margin-top: 0;
-            color: #334155;
-        }
-        .custom-form-group {
-            margin-bottom: 15px;
-            text-align: left;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .custom-form-group input, .custom-form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
-        .custom-form-group textarea {
-            height: 100px;
-            resize: vertical;
-        }
-        .generate-btn {
-            background: #3b82f6;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .generate-btn:hover {
-            background: #2563eb;
-        }
-    </style>
+    <meta name="robots" content="noindex, nofollow">
+    <meta property="og:title" content="Empathy">
+    <meta property="og:description" content="”pathy”意思是「感覺」，empathy的字首”em”是「在裡面」的意思，你的「同理」就像在對方心裡頭的感受">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gohellwithme.xyz/">
+    <meta property="og:image" content="https://gohellwithme.xyz/cover.jpg">
+    <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
     <nav class="navbar">
         <div class="container nav-container">
             <div class="nav-logo">Empathy</div>
-                        <button class="nav-toggle" aria-label="Toggle Navigation">
+            <button class="nav-toggle" aria-label="Toggle Navigation">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -108,109 +32,40 @@
             </div>
         </div>
     </nav>
+
     <header>
         <div class="container">
             <h1>三分钟让你成为文青</h1>
-            <p>我评价最近阅读的书。也欢迎你在这里上传你的看法。</p>
+            <p>”pathy”意思是「感覺」，empathy的字首”em”是「在裡面」的意思，你的「同理」就像在對方心裡頭的感受</p>
         </div>
     </header>
 
     <main class="container">
-        <!-- 官方书评列表 -->
-        <div class="book-list">
-            <div class="book-card">
-                <h2>《挪威的森林》</h2>
-                <div class="book-tag">直子自杀的时候我比渡边难过。</div>
-                <div class="book-content">
-                    <p>普通日本男孩渡边和普通日本女孩绿子最后在一起了。期间渡边一直喜欢直子，但是直子是忧郁系日系女孩，所以普通日本男孩得不到她的爱，最后直子自杀了，渡边终于和绿子也在一起了。</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 读者投稿交互模块 -->
-        <div class="reader-submit-box">
-            <h3>📖我说白了：事情就是这么一件事，</h3>
-            <div class="custom-form-group">
-                <input type="text" id="user-book-title" placeholder="书名（例如：《百年孤独》）">
-            </div>
-            <div class="custom-form-group">
-                <input type="text" id="user-book-rating" placeholder="一句话评价（例如：五星强推 / 晦涩难懂）">
-            </div>
-            <div class="custom-form-group">
-                <textarea id="user-book-content" placeholder="写下你的详细看法..."></textarea>
-            </div>
-            <button class="generate-btn" onclick="generateAndScroll()">生成排版并去发布 ↓</button>
-        </div>
-        
-        <div class="comments-section" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
-            <h3 id="comment-title">读者书评区 / 畅所欲言</h3>
-            <div id="tcomment"></div>
+        <div class="article-content js-enabled">
+            <h2>主理人的私人书单</h2>
+            <p>这里没有长篇大论的严肃书评，只有一些极其私人的阅读碎片。</p>
+            <p>如果你刚好也读过这些书，或者有什么极其想分享的句子，欢迎在最下方的评论区随意留言。带上图片、带上情绪，都可以，不需要拘泥于任何格式。</p>
+            
+            <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--border-color);">
+            
+            <div id="tcomment" class="comments-section js-enabled"></div>
         </div>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Empathy. 保留所有权利。</p>
+            <p>© 2026 Empathy. 保留所有权利，包括保持沉默的权利，也感谢您的凝视。</p>
         </div>
     </footer>
 
-    <script src="https://cdn.staticfile.net/twikoo/1.6.39/twikoo.all.min.js"></script>
+    <script src="https://cdn.staticfile.org/twikoo/1.6.31/twikoo.all.min.js"></script>
     <script>
         twikoo.init({
-            envId: 'https://twikoo.gohellwithme.xyz/api',
-            el: '#tcomment'
-        });
-
-        // 读者投稿交互逻辑
-        function generateAndScroll() {
-            const title = document.getElementById('user-book-title').value.trim();
-            const rating = document.getElementById('user-book-rating').value.trim();
-            const content = document.getElementById('user-book-content').value.trim();
-
-            if (!title && !content) {
-                alert("至少写点什么再生成吧！");
-                return;
-            }
-
-            // 使用 Markdown 语法生成类似卡片的精美排版
-            const template = `### 📖 ${title || '未命名书籍'}\n\n**📌 评价：** \`${rating || '暂无评价'}\`\n\n---\n\n${content}`;
-
-            // 尝试将内容填入 Twikoo 的输入框
-            const textarea = document.querySelector('.el-textarea__inner');
-            if (textarea) {
-                textarea.value = template;
-                // 触发 Vue/React 的双向绑定事件
-                textarea.dispatchEvent(new Event('input', { bubbles: true }));
-                
-                // 平滑滚动到评论区
-                document.getElementById('comment-title').scrollIntoView({ behavior: 'smooth' });
-                
-                // 提示用户
-                setTimeout(() => {
-                    alert("✅ 内容已自动排版并填入下方的评论框，输入昵称后点击【发送】即可展示在网页上！");
-                }, 500);
-            } else {
-                alert("评论区还在加载中，请稍等几秒再试~");
-            }
-        }
-    </script>
-    <script>
-        // 鎵嬫満绔鑸爮鍒囨崲閫昏緫
-        const navToggle = document.querySelector('.nav-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        if (navToggle) {
-            navToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('show');
-                navToggle.classList.toggle('active');
-            });
-        }
+            envId: 'https://twikoo-nu-flame.vercel.app/', // 替换为你的 envId
+            el: '#tcomment',
+        })
     </script>
     <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" async></script>
     <script src="main.js"></script>
 </body>
 </html>
-
-
-
-
-

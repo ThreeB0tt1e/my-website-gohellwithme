@@ -24,10 +24,53 @@
             </div>
         </div>
     </main>
+
+    <!-- 角落的更新日志 -->
+    <div class="changelog-corner js-enabled" style="position: absolute; bottom: 50px; right: 50px; text-align: right; font-size: 0.85rem; font-family: 'Noto Serif SC', serif; color: var(--text-muted); opacity: 0.5; transition: opacity 0.3s; line-height: 1.8; z-index: 20;">
+        <a href="#" id="latest-article-link" style="color: inherit; text-decoration: none; display: block; transition: color 0.3s;" onmouseover="this.style.color='var(--text-color)'" onmouseout="this.style.color='inherit'">
+            <span class="changelog-date" id="latest-article-date" style="font-family: 'Playfair Display', serif; font-size: 0.75rem; margin-right: 8px; opacity: 0.7;">...</span> 
+            <span id="latest-article-title">[文章] 加载中...</span>
+        </a>
+        <div class="changelog-item" style="display: block;">
+            <span class="changelog-date" style="font-family: 'Playfair Display', serif; font-size: 0.75rem; margin-right: 8px; opacity: 0.7;">09.30</span> 
+            <span>[系统] v2.0 沉浸式单页架构上线</span>
+        </div>
+    </div>
+
+    <script>
+        // 自动拉取最新文章
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('articles.html');
+                const text = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+                
+                // 抓取第一个 chapter-item
+                const latestArticle = doc.querySelector('.chapter-item');
+                if (latestArticle) {
+                    const title = latestArticle.querySelector('.chapter-title').innerText;
+                    const date = latestArticle.querySelector('.chapter-num').innerText;
+                    const href = latestArticle.getAttribute('href');
+                    
+                    // 格式化日期为 MM.DD
+                    const dateParts = date.split('-');
+                    const shortDate = dateParts.length === 3 ? \.\ : date;
+                    
+                    document.getElementById('latest-article-date').innerText = shortDate;
+                    document.getElementById('latest-article-title').innerText = '[文章] ' + title;
+                    document.getElementById('latest-article-link').href = href;
+                }
+            } catch (e) {
+                console.error("无法获取最新文章", e);
+            }
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" async></script>
     <script src="main.js"></script>
 </body>
 </html>
+
 
 
 

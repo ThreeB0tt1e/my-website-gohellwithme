@@ -194,14 +194,14 @@ window.addEventListener('pageshow', (event) => {
 document.addEventListener('DOMContentLoaded', () => {
     const musicBtn = document.createElement('button');
     musicBtn.id = 'music-toggle';
-    musicBtn.title = '播放环境音 (请确保网站根目录有 bgm.mp3)';
+    musicBtn.title = '播放环境音 (请确保网站根目录有 bgm.m4a)';
     musicBtn.innerHTML = '🎵';
     document.body.appendChild(musicBtn);
 
     const audio = document.createElement('audio');
     audio.id = 'bgm';
     audio.loop = true;
-    audio.src = 'bgm.mp3';
+    audio.src = 'bgm.m4a';
     document.body.appendChild(audio);
 
     musicBtn.addEventListener('click', () => {
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 musicBtn.classList.add('playing');
                 musicBtn.innerHTML = '🎶';
             }).catch(e => {
-                alert("播放失败。如果你想听到音乐，请在 D:\\article-sharing-site 文件夹里放一个名为 'bgm.mp3' 的音乐文件！");
+                alert("播放失败。如果你想听到音乐，请在 D:\\article-sharing-site 文件夹里放一个名为 'bgm.m4a' 的音乐文件！");
             });
         } else {
             audio.pause();
@@ -219,3 +219,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -238,7 +238,7 @@
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(templateHtml, 'text/html');
                 
-                doc.title = `${title} - 这行字是标题`;
+                doc.title = `${title} - Empathy`;
                 doc.querySelector('.article-header h1').textContent = title;
                 doc.querySelector('.meta').textContent = `发布于 ${date} • 作者：Admin`;
                 
@@ -370,3 +370,4 @@
     </script>
 </body>
 </html>
+

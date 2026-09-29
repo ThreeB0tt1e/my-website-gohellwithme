@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empathy - 发布新文章</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --card-bg: #ffffff;
+            --text-color: #2c2c2c;
+            --text-muted: #888888;
+            --border-color: #e5e5e5;
+            --primary-color: #1a1a1a;
+        }
+        body {
+            font-family: "Noto Serif SC", serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .admin-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .form-group { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: var(--text-muted); font-size: 0.9rem; }
+        input[type="text"], input[type="password"], select, textarea {
+            width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 4px;
+            font-family: inherit; font-size: 1rem; background: transparent; box-sizing: border-box; transition: 0.3s;
+        }
+        input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary-color); }
+        textarea { resize: vertical; min-height: 200px; line-height: 1.8; }
+        button {
+            width: 100%; padding: 15px; background: var(--primary-color); color: white; border: none;
+            border-radius: 4px; font-size: 1.1rem; font-family: inherit; cursor: pointer; transition: 0.3s;
+        }
+        button:hover { background: #333; }
+        #status { margin-top: 20px; text-align: center; font-size: 0.9rem; white-space: pre-wrap; line-height: 1.6; }
+        .help-text { font-size: 0.8rem; color: var(--text-muted); margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="admin-container">
+    <h1>Publish Article</h1>
+    
+    <div class="form-group">
+        <label>授权密钥 (Token)</label>
+        <input type="password" id="token" placeholder="输入你的 GitHub Token" autocomplete="off">
+    </div>
+
+    <div style="display: flex; gap: 15px;">
+        <div class="form-group" style="flex: 1;">
+            <label>所属分类</label>
+            <select id="category">
+                <option value="今日杂谈">今日杂谈</option>
+                <option value="魔鬼契约">魔鬼契约</option>
+                <option value="游记">游记</option>
+                <option value="寓言">寓言</option>
+                <option value="糖果屋">糖果屋</option>
+            </select>
+        </div>
+        <div class="form-group" style="flex: 1;">
+            <label>网页文件名 (英文)</label>
+            <input type="text" id="filename" placeholder="例如: chat6">
+            <div class="help-text">只写英文，自动加 .html</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>文章大标题</label>
+        <input type="text" id="title" placeholder="例如：六. 关于死亡">
+    </div>
+
+    <div class="form-group">
+        <label>文章正文 (直接回车换行即可)</label>
+        <textarea id="content" placeholder="在这里写下你的文字..."></textarea>
+    </div>
+
+    <button id="publish-btn">刻下契约 (发布文章)</button>
+    <div id="status"></div>
+</div>
+
+<script>
+    // utf-8 安全的 base64 编码解码
+    function utf8_to_b64(str) { return btoa(unescape(encodeURIComponent(str))); }
+    function b64_to_utf8(str) { return decodeURIComponent(escape(atob(str))); }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedToken = localStorage.getItem('empathy_github_token');
+        if (savedToken) document.getElementById('token').value = savedToken;
+    });
+
+    document.getElementById('publish-btn').addEventListener('click', async () => {
+        const token = document.getElementById('token').value.trim();
+        const category = document.getElementById('category').value;
+        const filenameRaw = document.getElementById('filename').value.trim().toLowerCase();
+        const title = document.getElementById('title').value.trim();
+        const rawContent = document.getElementById('content').value.trim();
+        const statusEl = document.getElementById('status');
+
+        if (!token || !filenameRaw || !title || !rawContent) {
+            statusEl.innerText = "请填写所有必填字段！";
+            statusEl.style.color = "red";
+            return;
+        }
+
+        const filename = filenameRaw.endsWith('.html') ? filenameRaw : filenameRaw + '.html';
+        const dateStr = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+        
+        localStorage.setItem('empathy_github_token', token);
+        statusEl.style.color = "var(--text-muted)";
+        statusEl.innerText = "⏳ 正在构建网页...\n";
+
+        // 把换行符替换为段落标签
+        const formattedContent = rawContent.split('\\n').filter(p => p.trim() !== '').map(p => \            <p>\</p>\).join('\\n');
+
+        const articleTemplate = \<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>\ - Empathy</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+</head>
+<body class="article-page">
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-logo">Empathy</div>
+            <button class="nav-toggle" aria-label="Toggle Navigation"><span></span><span></span><span></span></button>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="articles.html" class="active">目录</a>
+                <a href="contract.html">魔鬼契约</a>
+                <a href="books.html">几页书</a>
+                <a href="characters.html">人物介绍</a>
+                <a href="guestbook.html">留言板</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <article class="article-content js-enabled">
+            <header class="article-header">
+                <h1>\</h1>
+                <div class="article-meta">发布于 \</div>
+            </header>
+            
+\
+            
+            <div class="article-footer">
+                <div class="article-nav">
+                    <a href="articles.html" class="nav-prev">← 返回目录</a>
+                    <a href="#" class="nav-next" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">回到顶部 ↑</a>
+                </div>
+            </div>
+        </article>
+        
+        <div id="tcomment" class="js-enabled" style="margin-top: 60px;"></div>
+    </main>
+    <footer><div class="container"><p>© 2026 Empathy. 保留所有权利，包括保持沉默的权利。</p></div></footer>
+    <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" async></scr\ + \ipt>
+    <script src="https://cdn.staticfile.org/twikoo/1.6.31/twikoo.all.min.js"></scr\ + \ipt>
+    <script>
+        twikoo.init({
+            envId: 'https://twikoo.gohellwithme.xyz/api',
+            el: '#tcomment'
+        })
+    </scr\ + \ipt>
+    <script src="main.js"></scr\ + \ipt>
+</body></html>\;
+
+        const repo = "ThreeB0tt1e/my-website-gohellwithme";
+        const headers = { 'Authorization': \	oken \\, 'Content-Type': 'application/json' };
+
+        try {
+            // 步骤 1: 创建 HTML 文件
+            statusEl.innerText += "⏳ 正在提交文章文件...\n";
+            const putRes = await fetch(\https://api.github.com/repos/\/contents/\\, {
+                method: 'PUT', headers,
+                body: JSON.stringify({ message: \eat: publish new article \\, content: utf8_to_b64(articleTemplate) })
+            });
+            if (!putRes.ok) throw new Error("创建文章失败，可能文件已存在");
+
+            // 步骤 2: 更新 articles.html 目录
+            statusEl.innerText += "⏳ 正在更新总目录...\n";
+            const dirRes = await fetch(\https://api.github.com/repos/\/contents/articles.html\, { headers });
+            const dirData = await dirRes.json();
+            const currentDirHTML = b64_to_utf8(dirData.content);
+            
+            const newDirLink = \
+            <a href="\" class="chapter-item card" data-category="\" style="text-decoration: none;">
+                <span class="chapter-num" style="width: 100px;">\</span>
+                <span class="chapter-title">\</span>
+                <span class="chapter-arrow">→</span>
+            </a>\;
+            
+            // 插入到列表的最前面
+            const insertPointDir = '<div class="article-grid js-enabled" style="display: none; flex-direction: column; gap: 15px;">';
+            const newDirHTML = currentDirHTML.replace(insertPointDir, insertPointDir + "\\n" + newDirLink);
+            
+            await fetch(\https://api.github.com/repos/\/contents/articles.html\, {
+                method: 'PUT', headers,
+                body: JSON.stringify({ message: \update directory for \\, content: utf8_to_b64(newDirHTML), sha: dirData.sha })
+            });
+
+            // 步骤 3: 如果是魔鬼契约，更新 contract.html
+            if (category === "魔鬼契约") {
+                statusEl.innerText += "⏳ 正在更新《魔鬼契约》专属目录...\n";
+                const conRes = await fetch(\https://api.github.com/repos/\/contents/contract.html\, { headers });
+                const conData = await conRes.json();
+                const currentConHTML = b64_to_utf8(conData.content);
+                
+                const newConLink = \
+            <a href="\" class="chapter-item">
+                <span class="chapter-num">\</span>
+                <span class="chapter-title">\</span>
+                <span class="chapter-arrow">→</span>
+            </a>\;
+                
+                const insertPointCon = '<div class="chapter-list js-enabled">';
+                const newConHTML = currentConHTML.replace(insertPointCon, insertPointCon + "\\n" + newConLink);
+                
+                await fetch(\https://api.github.com/repos/\/contents/contract.html\, {
+                    method: 'PUT', headers,
+                    body: JSON.stringify({ message: \update contract directory for \\, content: utf8_to_b64(newConHTML), sha: conData.sha })
+                });
+            }
+
+            statusEl.innerText += "\n✨ 发布成功！大概等待 1~2 分钟，GitHub 更新缓存后全网即可见。";
+            statusEl.style.color = "green";
+
+        } catch (error) {
+            statusEl.innerText += "\n❌ 出错了：" + error.message;
+            statusEl.style.color = "red";
+        }
+    });
+</script>
+</body>
+</html>

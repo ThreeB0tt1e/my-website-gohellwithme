@@ -1063,3 +1063,34 @@ body.page-transitioning-out {
 .chapter-item:hover .chapter-arrow {
     opacity: 1;
 }
+
+/* =========================================
+   子分类胶囊按钮
+   ========================================= */
+.pill-btn {
+    display: block;
+    width: 250px;
+    padding: 16px 30px;
+    border: 1px solid rgba(0,0,0,0.05); /* 默认非常淡的边框 */
+    border-radius: 50px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    font-family: "Noto Serif SC", serif;
+    letter-spacing: 3px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+[data-theme="dark"] .pill-btn {
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.pill-btn:hover {
+    border-color: var(--text-color); /* 悬停时变成明显的黑框 (如截图) */
+    color: var(--text-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+

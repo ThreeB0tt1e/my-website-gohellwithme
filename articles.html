@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -32,38 +32,42 @@
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" style="min-height: 60vh;">
         
-        <div class="folding-screen-container js-enabled">
+        <!-- 视图 1：屏风 -->
+        <div id="view-screen" class="folding-screen-container js-enabled" style="transition: opacity 0.5s;">
             <!-- 第一扇：见自己 -->
-            <div class="screen-panel">
+            <div class="screen-panel" onclick="openStage('见自己')">
                 <h2 class="panel-title">见自己</h2>
-                <div class="panel-options">
-                    <button class="filter-btn" onclick="filterCategory('今日杂谈', this)">今日杂谈</button>
-                    <button class="filter-btn" onclick="filterCategory('游记', this)">游记</button>
-                </div>
             </div>
             
             <!-- 第二扇：见天地 -->
-            <div class="screen-panel">
+            <div class="screen-panel" onclick="openStage('见天地')">
                 <h2 class="panel-title">见天地</h2>
-                <div class="panel-options">
-                    <button class="filter-btn" onclick="filterCategory('寓言', this)">寓言</button>
-                    <button class="filter-btn" onclick="filterCategory('糖果屋', this)">糖果屋</button>
-                </div>
             </div>
             
             <!-- 第三扇：见众生 -->
-            <div class="screen-panel">
+            <div class="screen-panel" onclick="openStage('见众生')">
                 <h2 class="panel-title">见众生</h2>
-                <div class="panel-options">
-                    <button class="filter-btn" onclick="filterCategory('魔鬼契约', this)">魔鬼契约</button>
-                    <button class="filter-btn" onclick="filterCategory('all', this)">全部</button>
-                </div>
             </div>
         </div>
 
-        <div class="article-grid js-enabled" style="display: none; flex-direction: column; gap: 15px;">
+        <!-- 视图 2：子分类胶囊按钮 -->
+        <div id="view-categories" style="display: none; flex-direction: column; align-items: center; justify-content: center; padding-top: 40px; gap: 40px; opacity: 0; transition: opacity 0.5s;">
+            <div style="width: 100%; text-align: left; margin-bottom: 20px;">
+                <a href="#" onclick="goBackToScreen(); return false;" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">← 返回屏风</a>
+            </div>
+            <div id="category-buttons" style="display: flex; flex-direction: column; gap: 30px;">
+                <!-- JS 会把胶囊按钮画在这里 -->
+            </div>
+        </div>
+
+        <!-- 视图 3：文章列表 -->
+        <div id="view-articles" style="display: none; flex-direction: column; opacity: 0; transition: opacity 0.5s;">
+            <div style="margin-bottom: 30px;">
+                <a href="#" onclick="goBackToCategories(); return false;" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">← 返回分类</a>
+            </div>
+            <div class="article-grid js-enabled" style="display: flex; flex-direction: column; gap: 15px;">
 <a href="miscellany5.html" class="chapter-item card" data-category="今日杂谈" style="text-decoration: none;">
                 <span class="chapter-num" style="width: 100px;">2026-09-24</span>
                 <span class="chapter-title">五．断章取义</span>
@@ -144,7 +148,9 @@
                 <span class="chapter-title">魔鬼契约</span>
                 <span class="chapter-arrow">→</span>
             </a>
+            </div>
         </div>
+
     </main>
 
     <footer>
@@ -154,34 +160,66 @@
     </footer>
 
     <script>
-        function filterCategory(cat, btn) {
-            // 防止冒泡触发折叠
-            if (event) event.stopPropagation();
+        const viewScreen = document.getElementById('view-screen');
+        const viewCategories = document.getElementById('view-categories');
+        const viewArticles = document.getElementById('view-articles');
+        const catButtonsContainer = document.getElementById('category-buttons');
+        let currentStage = '';
 
-            const grid = document.querySelector('.article-grid');
-            grid.style.display = 'flex';
-            
-            grid.style.opacity = '0';
+        const stageMap = {
+            '见自己': ['今日杂谈', '游记'],
+            '见天地': ['寓言', '糖果屋'],
+            '见众生': ['魔鬼契约']
+        };
+
+        function switchView(hideEl, showEl, setupCallback) {
+            hideEl.style.opacity = '0';
             setTimeout(() => {
+                hideEl.style.display = 'none';
+                if (setupCallback) setupCallback();
+                showEl.style.display = 'flex';
+                // Trigger reflow
+                void showEl.offsetWidth;
+                showEl.style.opacity = '1';
+            }, 500);
+        }
+
+        function openStage(stage) {
+            currentStage = stage;
+            switchView(viewScreen, viewCategories, () => {
+                const categories = stageMap[stage];
+                catButtonsContainer.innerHTML = '';
+                categories.forEach(cat => {
+                    const btn = document.createElement('button');
+                    btn.className = 'pill-btn';
+                    btn.innerText = cat;
+                    btn.onclick = () => openCategory(cat);
+                    catButtonsContainer.appendChild(btn);
+                });
+            });
+        }
+
+        function openCategory(cat) {
+            switchView(viewCategories, viewArticles, () => {
                 document.querySelectorAll('.chapter-item').forEach(article => {
-                    if (cat === 'all' || article.getAttribute('data-category') === cat) {
+                    if (article.getAttribute('data-category') === cat) {
                         article.style.display = 'flex';
                     } else {
                         article.style.display = 'none';
                     }
                 });
-                grid.style.opacity = '1';
-                grid.style.transition = 'opacity 0.8s ease';
-            }, 50);
-            
-            setTimeout(() => {
-                grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 200);
+            });
+        }
+
+        function goBackToCategories() {
+            switchView(viewArticles, viewCategories);
+        }
+
+        function goBackToScreen() {
+            switchView(viewCategories, viewScreen);
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" async></script>
     <script src="main.js"></script>
 </body>
 </html>
-
-

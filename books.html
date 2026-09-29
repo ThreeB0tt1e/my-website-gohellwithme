@@ -41,15 +41,41 @@
     </header>
 
     <main class="container">
-        <div class="article-content js-enabled">
-            <h2>几页书</h2>
-            <p>遇到喜欢的，就记下来。</p>
-            <p></p>
+        
+        <!-- 书单模块列表 -->
+        <div class="book-review-list js-enabled" style="display: flex; flex-direction: column; gap: 40px; margin-bottom: 60px;">
             
-            <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--border-color);">
+            <!-- 单本书籍模块 -->
+            <div class="book-review-card" style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 35px; border-radius: 4px; box-shadow: 0 5px 20px rgba(0,0,0,0.02); position: relative;">
+                
+                <h3 class="book-title" style="font-family: 'Playfair Display', 'Noto Serif SC', serif; font-size: 1.5rem; color: var(--text-color); margin: 0 0 25px 0; padding-bottom: 15px; border-bottom: 1px dashed var(--border-color);">
+                    《挪威的森林》
+                </h3>
+                
+                <div class="book-meta" style="display: flex; flex-direction: column; gap: 20px;">
+                    
+                    <div class="meta-row" style="display: flex; align-items: flex-start; line-height: 1.8;">
+                        <span class="meta-label" style="font-family: 'Noto Serif SC', serif; font-weight: bold; color: var(--text-muted); min-width: 90px; font-size: 0.95rem; margin-right: 15px;">我心情：</span>
+                        <span class="meta-content" style="color: var(--text-color); flex: 1; font-style: italic;">
+                            直子自杀的时候我比渡边难过
+                        </span>
+                    </div>
+                    
+                    <div class="meta-row" style="display: flex; align-items: flex-start; line-height: 1.8;">
+                        <span class="meta-label" style="font-family: 'Noto Serif SC', serif; font-weight: bold; color: var(--text-muted); min-width: 90px; font-size: 0.95rem; margin-right: 15px;">我说白了：</span>
+                        <span class="meta-content" style="color: var(--text-color); flex: 1; text-align: justify;">
+                            普通日本男孩渡边和普通日本女孩绿子最后在一起了，期间渡边一直喜欢直子，但是直子是忧郁系日系女孩，所以普通日本男孩得不到她的爱，最后直子自杀了，渡边终于和绿子在一起了。
+                        </span>
+                    </div>
+                    
+                </div>
+            </div>
             
-            <div id="tcomment" class="comments-section js-enabled"></div>
+            <!-- 以后有新的书，就复制上面这段 .book-review-card 代码 -->
+
         </div>
+
+        <div id="tcomment" class="js-enabled"></div>
     </main>
 
     <footer>
@@ -69,6 +95,7 @@
     <script src="main.js"></script>
 </body>
 </html>
+
 
 
 

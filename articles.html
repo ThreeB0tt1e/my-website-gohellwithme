@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -55,7 +55,7 @@
         <!-- 视图 2：子分类胶囊按钮 -->
         <div id="view-categories" style="display: none; flex-direction: column; align-items: center; justify-content: center; padding-top: 40px; gap: 40px; opacity: 0; transition: opacity 0.5s;">
             <div style="width: 100%; text-align: left; margin-bottom: 20px;">
-                <a href="#" onclick="goBackToScreen(); return false;" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">← 返回屏风</a>
+                <a href="#" onclick="goBackToScreen(); return false;" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">← 返回主界面</a>
             </div>
             <div id="category-buttons" style="display: flex; flex-direction: column; gap: 30px;">
                 <!-- JS 会把胶囊按钮画在这里 -->
@@ -65,7 +65,7 @@
         <!-- 视图 3：文章列表 -->
         <div id="view-articles" style="display: none; flex-direction: column; opacity: 0; transition: opacity 0.5s;">
             <div style="margin-bottom: 30px;">
-                <a href="#" onclick="goBackToCategories(); return false;" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">← 返回分类</a>
+                <a href="#" onclick="goBackToCategories(); return false;" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">← 返回主界面</a>
             </div>
             <div class="article-grid js-enabled" style="display: flex; flex-direction: column; gap: 15px;">
 <a href="miscellany5.html" class="chapter-item card" data-category="今日杂谈" style="text-decoration: none;">
@@ -218,3 +218,4 @@
     <script src="main.js"></script>
 </body>
 </html>
+

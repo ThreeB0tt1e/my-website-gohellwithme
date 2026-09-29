@@ -265,9 +265,11 @@ footer {
 }
 
 .hero h1 {
-    font-size: 3rem;
-    color: #111827;
-    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: clamp(3.5rem, 7vw, 5.5rem);
+    letter-spacing: 2px;
+    margin-bottom: 50px;
+    position: relative;
 }
 
 .hero p {
@@ -381,9 +383,12 @@ footer {
     }
 
     .hero h1 {
-        font-size: 1.8rem;
-        line-height: 1.3;
-    }
+    font-weight: 500;
+    font-size: clamp(3.5rem, 7vw, 5.5rem);
+    letter-spacing: 2px;
+    margin-bottom: 50px;
+    position: relative;
+}
 
     .hero p {
         font-size: 1rem;
@@ -466,8 +471,12 @@ footer {
    ======================================== */
 @media (max-width: 400px) {
     .hero h1 {
-        font-size: 1.5rem;
-    }
+    font-weight: 500;
+    font-size: clamp(3.5rem, 7vw, 5.5rem);
+    letter-spacing: 2px;
+    margin-bottom: 50px;
+    position: relative;
+}
 
     .hero-buttons .btn {
         width: 90%;
@@ -520,7 +529,7 @@ em, i {
 /* 首页 Empathy 标题 */
 .empathy-title {
     font-family: "Georgia", "Times New Roman", serif;
-    font-size: 5rem;
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: normal;
     color: rgba(0, 0, 0, 0.03);
     text-transform: uppercase;
@@ -536,8 +545,8 @@ em, i {
 
 /* 首页 Say Yes 标题 */
 .hero h1 {
-    font-weight: 300;
-    font-size: 2.2rem;
+    font-weight: 500;
+    font-size: clamp(3.5rem, 7vw, 5.5rem);
     letter-spacing: 2px;
     margin-bottom: 50px;
     position: relative;
@@ -561,8 +570,10 @@ em, i {
 
 @media (max-width: 768px) {
     .empathy-title {
-        font-size: 3rem;
+        font-size: clamp(2rem, 5vw, 3rem);
         transform: translate(-50%, -100%);
     }
 }
+
+
 

@@ -900,3 +900,121 @@ body.page-transitioning-out {
         height: 40px;
     }
 }
+
+/* =========================================
+   🎞️ 宫二屏风分类 (Gong Er Folding Screen)
+   ========================================= */
+.gong-er-quote {
+    text-align: center;
+    font-family: 'Playfair Display', "Noto Serif SC", serif;
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin: 20px 0 40px;
+    letter-spacing: 2px;
+}
+.gong-er-quote .author {
+    font-size: 0.9rem;
+    margin-left: 10px;
+}
+
+.folding-screen-container {
+    display: flex;
+    width: 100%;
+    height: 50vh;
+    min-height: 350px;
+    gap: 4px;
+    margin-bottom: 60px;
+    background: transparent;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.screen-panel {
+    flex: 1;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    position: relative;
+    cursor: default;
+    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), background 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+/* 悬停展开 */
+.screen-panel:hover {
+    flex: 2.5;
+    background: var(--bg-color);
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
+}
+
+.panel-title {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 1.8rem;
+    letter-spacing: 0.4em;
+    font-family: "Noto Serif SC", serif;
+    color: var(--text-color);
+    transition: all 0.6s ease;
+    margin: 0;
+}
+
+.screen-panel:hover .panel-title {
+    opacity: 0.1;
+    transform: translateX(-50px);
+}
+
+.panel-options {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.screen-panel:hover .panel-options {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition-delay: 0.2s;
+}
+
+/* 修改原来的 filter-btn 样式以适应屏风 */
+.panel-options .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 12px 25px;
+    font-size: 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "Noto Serif SC", serif;
+}
+
+.panel-options .filter-btn:hover,
+.panel-options .filter-btn.active {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+/* 隐藏文章列表直到选择 */
+.article-grid {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    display: none;
+}
+.article-grid.show-articles {
+    opacity: 1;
+    transform: translateY(0);
+    display: grid;
+}

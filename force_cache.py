@@ -12,7 +12,6 @@ for filename in os.listdir(directory):
             content = f.read()
         
         content = re.sub(r'href="styles\.css(\?v=\d+)?"', f'href="styles.css?v={timestamp}"', content)
-        content = re.sub(r'src="main\.js(\?v=\d+)?"', f'src="main.js?v={timestamp}"', content)
         
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)

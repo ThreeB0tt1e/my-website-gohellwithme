@@ -1128,3 +1128,33 @@ body.page-transitioning-out {
     opacity: 0.3; /* 若隐若现，不喧宾夺主 */
     transition: width 0.1s ease-out;
 }
+
+/* =========================================
+   终极修复：移动端 CSS 水平滑动菜单 (弃用汉堡菜单)
+   ========================================= */
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: none !important; /* 彻底干掉汉堡按钮 */
+    }
+    .nav-links {
+        display: flex !important;
+        position: static !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        border-top: none !important;
+        box-shadow: none !important;
+        padding: 10px 0 !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+    }
+    .nav-links::-webkit-scrollbar {
+        display: none !important;
+    }
+    .nav-links a {
+        margin-left: 15px !important;
+        padding: 5px 10px !important;
+        border-bottom: none !important;
+        font-size: 0.95rem !important;
+    }
+}

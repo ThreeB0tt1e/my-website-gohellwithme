@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,4 +33,15 @@
     </footer>
 
 
+    <script>
+        // 鎵嬫満绔鑸爮鍒囨崲閫昏緫
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('show');
+                navToggle.classList.toggle('active');
+            });
+        }
+    </script>
 </body></html>

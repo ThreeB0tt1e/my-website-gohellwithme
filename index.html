@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,11 @@
     <nav class="navbar">
         <div class="container nav-container">
             <div class="nav-logo">这行字是标题</div>
+                        <button class="nav-toggle" aria-label="Toggle Navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <div class="nav-links">
                 <a href="index.html" class="active">首页</a>
                 <a href="articles.html">目录</a>
@@ -36,5 +41,17 @@
             <p>© 2026 这行字是标题. 保留所有权利。</p>
         </div>
     </footer>
+    <script>
+        // 鎵嬫満绔鑸爮鍒囨崲閫昏緫
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('show');
+                navToggle.classList.toggle('active');
+            });
+        }
+    </script>
 </body>
 </html>
+

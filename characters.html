@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人物介绍 - 这行字是标题</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .character-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        .character-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+        }
+        .character-card h2 {
+            margin-top: 0;
+            color: #1f2937;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .character-tag {
+            display: inline-block;
+            background: #f3f4f6;
+            color: #4b5563;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        .intro-prompt {
+            color: #6b7280;
+            font-style: italic;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-logo">这行字是标题</div>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="articles.html">目录</a>
+                <a href="books.html">三分钟让你成为文青</a>
+                <a href="characters.html" class="active">人物介绍</a>
+                <a href="guestbook.html">留言板</a>
+            </div>
+        </div>
+    </nav>
+    <header>
+        <div class="container">
+            <h1>人物介绍（共创版）</h1>
+            <p>这里没有预设的评价，每个人物是什么样，交给大家来定义。</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="character-list">
+            
+            <div class="character-card">
+                <h2>我</h2>
+                <div class="character-tag">核心人物</div>
+                <div class="intro-prompt">广告位招租</div>
+                <div id="tcomment-me"></div>
+            </div>
+            
+            <div class="character-card">
+                <h2>艺术生D</h2>
+                <div class="character-tag">相关人物</div>
+                <div class="intro-prompt">广告位招租</div>
+                <div id="tcomment-d"></div>
+            </div>
+            
+            <div class="character-card">
+                <h2>艺术生C</h2>
+                <div class="character-tag">相关人物</div>
+                <div class="intro-prompt">广告位招租</div>
+                <div id="tcomment-c"></div>
+            </div>
+            
+            <div class="character-card">
+                <h2>老实人</h2>
+                <div class="character-tag">相关人物</div>
+                <div class="intro-prompt">广告位招租</div>
+                <div id="tcomment-laoshiren"></div>
+            </div>
+            
+            <div class="character-card">
+                <h2>红玫瑰</h2>
+                <div class="character-tag">相关人物</div>
+                <div class="intro-prompt">广告位招租</div>
+                <div id="tcomment-hongmeigui"></div>
+            </div>
+
+            <div class="character-card">
+                <h2>日系女孩</h2>
+                <div class="character-tag">相关人物</div>
+                <div class="intro-prompt">广告位招租</div>
+                <div id="tcomment-rixinvhai"></div>
+            </div>
+            
+            <div class="character-card">
+                <h2>角角大王</h2>
+                <div class="character-tag">观察对象</div>
+                <div class="intro-prompt">广告位招租</div>
+                <div id="tcomment-jiaojiao"></div>
+            </div>
+            
+            <div class="character-card">
+                <h2>学生会主席</h2>
+                <div class="character-tag">相关人物</div>
+                <div class="intro-prompt">广告位招租</div>
+                <div id="tcomment-zhuxi"></div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 这行字是标题. 保留所有权利。</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.staticfile.net/twikoo/1.6.39/twikoo.all.min.js"></script>
+    <script>
+        const envId = 'https://twikoo.gohellwithme.xyz/api';
+        
+        // 分别为每个人物初始化独立的评论区
+        twikoo.init({ envId: envId, el: '#tcomment-me', path: '/characters/me' });
+        setTimeout(() => twikoo.init({ envId: envId, el: '#tcomment-d', path: '/characters/d' }), 500);
+        setTimeout(() => twikoo.init({ envId: envId, el: '#tcomment-c', path: '/characters/c' }), 1000);
+        setTimeout(() => twikoo.init({ envId: envId, el: '#tcomment-laoshiren', path: '/characters/laoshiren' }), 1500);
+        setTimeout(() => twikoo.init({ envId: envId, el: '#tcomment-hongmeigui', path: '/characters/hongmeigui' }), 2000);
+        setTimeout(() => twikoo.init({ envId: envId, el: '#tcomment-rixinvhai', path: '/characters/rixinvhai' }), 2500);
+        setTimeout(() => twikoo.init({ envId: envId, el: '#tcomment-jiaojiao', path: '/characters/jiaojiao' }), 3000);
+        setTimeout(() => twikoo.init({ envId: envId, el: '#tcomment-zhuxi', path: '/characters/zhuxi' }), 3500);
+    </script>
+</body>
+</html>

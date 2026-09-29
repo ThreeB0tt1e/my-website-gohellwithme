@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>如何开始写作 - 这行字是标题</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-logo">这行字是标题</div>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="articles.html">目录</a>
+                <a href="books.html">三分钟让你成为文青</a>
+                <a href="characters.html">人物介绍</a>
+                <a href="guestbook.html">留言板</a>
+            </div>
+        </div>
+    </nav>
+    <header>
+        <div class="container">
+            <h1>这行字是标题</h1>
+            <p>这里应该输入文本，但是还在测试阶段</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <a href="index.html" class="back-link">← 返回首页</a>
+        
+        <article class="article-content">
+            <div class="article-header">
+                <h1>如何开始写作</h1>
+                <div class="meta">发布于 2026-09-24 • 作者：Your Name</div>
+            </div>
+            
+            <div class="content">
+                <p>写作是一项重要的技能，它可以帮助我们更好地思考和表达。在这篇文章中，我将分享我是如何开始写作的，以及一些实用的建议。</p>
+                
+                <h2>1. 找到你的动力</h2>
+                <p>无论你是想记录生活、分享知识，还是为了建立个人品牌，找到写作的动力是坚持下去的关键。每次你想放弃的时候，想一想你为什么要开始。</p>
+                
+                <h2>2. 养成习惯</h2>
+                <p>写作不需要等到有完美的灵感才开始。每天设定一个固定的时间，哪怕只写几百字，慢慢地你会发现，写作变得越来越自然。</p>
+                
+                <h2>3. 多读多看</h2>
+                <p>优秀的输出离不开高质量的输入。多阅读你感兴趣领域的优秀文章和书籍，学习他们的表达方式和逻辑结构。</p>
+                
+                <h2>结语</h2>
+                <p>不要害怕写得不好，每个人都是从零开始的。重要的是迈出第一步。现在就开始你的写作之旅吧！</p>
+            </div>
+        </article>
+        
+        <div class="comments-section" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+            <h3>评论区</h3>
+            <div id="tcomment"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 这行字是标题. 保留所有权利。</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.staticfile.net/twikoo/1.6.39/twikoo.all.min.js"></script>
+    <script>
+        twikoo.init({
+            envId: 'https://twikoo.gohellwithme.xyz/api',
+            el: '#tcomment'
+        });
+    </script>
+</body>
+</html>

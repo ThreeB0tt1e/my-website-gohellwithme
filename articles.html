@@ -165,7 +165,6 @@
         const viewArticles = document.getElementById('view-articles');
         const catButtonsContainer = document.getElementById('category-buttons');
 
-        // 用户的所有分类，不再受限于哪一扇屏风
         const allCategories = ['今日杂谈', '游记', '寓言', '糖果屋', '魔鬼契约'];
 
         function switchView(hideEl, showEl, setupCallback) {
@@ -174,28 +173,44 @@
                 hideEl.style.display = 'none';
                 if (setupCallback) setupCallback();
                 showEl.style.display = 'flex';
-                // Trigger reflow
                 void showEl.offsetWidth;
                 showEl.style.opacity = '1';
-            }, 500);
+            }, 300); // 加快了一点动画速度
         }
 
         function openStage() {
-            // 不管点击哪扇门，都打开所有分类。具体什么文章属于“见自己”或“见天地”，由读者在心中自行定义。
-            switchView(viewScreen, viewCategories, () => {
-                catButtonsContainer.innerHTML = '';
-                allCategories.forEach(cat => {
-                    const btn = document.createElement('button');
-                    btn.className = 'pill-btn';
-                    btn.innerText = cat;
-                    btn.onclick = () => openCategory(cat);
-                    catButtonsContainer.appendChild(btn);
-                });
-            });
+            window.location.hash = 'categories';
         }
 
         function openCategory(cat) {
-            switchView(viewCategories, viewArticles, () => {
+            window.location.hash = 'cat-' + encodeURIComponent(cat);
+        }
+
+        function renderCategories() {
+            catButtonsContainer.innerHTML = '';
+            allCategories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'pill-btn';
+                btn.innerText = cat;
+                btn.onclick = () => openCategory(cat);
+                catButtonsContainer.appendChild(btn);
+            });
+        }
+
+        function handleHashChange() {
+            const hash = window.location.hash;
+            
+            // 隐藏所有
+            viewScreen.style.display = 'none';
+            viewCategories.style.display = 'none';
+            viewArticles.style.display = 'none';
+            
+            viewScreen.style.opacity = '0';
+            viewCategories.style.opacity = '0';
+            viewArticles.style.opacity = '0';
+
+            if (hash.startsWith('#cat-')) {
+                const cat = decodeURIComponent(hash.replace('#cat-', ''));
                 document.querySelectorAll('.chapter-item').forEach(article => {
                     if (article.getAttribute('data-category') === cat) {
                         article.style.display = 'flex';
@@ -203,15 +218,32 @@
                         article.style.display = 'none';
                     }
                 });
-            });
+                viewArticles.style.display = 'flex';
+                setTimeout(() => viewArticles.style.opacity = '1', 50);
+            } 
+            else if (hash === '#categories') {
+                renderCategories();
+                viewCategories.style.display = 'flex';
+                setTimeout(() => viewCategories.style.opacity = '1', 50);
+            } 
+            else {
+                viewScreen.style.display = 'flex';
+                setTimeout(() => viewScreen.style.opacity = '1', 50);
+            }
         }
 
+        // 监听浏览器前进后退和 Hash 变化
+        window.addEventListener('hashchange', handleHashChange);
+        
+        // 页面加载时执行一次
+        document.addEventListener('DOMContentLoaded', handleHashChange);
+
         function goBackToCategories() {
-            switchView(viewArticles, viewCategories);
+            window.location.hash = 'categories';
         }
 
         function goBackToScreen() {
-            switchView(viewCategories, viewScreen);
+            window.location.hash = '';
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" async></script>

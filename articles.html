@@ -37,17 +37,17 @@
         <!-- 视图 1：屏风 -->
         <div id="view-screen" class="folding-screen-container js-enabled" style="transition: opacity 0.5s;">
             <!-- 第一扇：见自己 -->
-            <div class="screen-panel" onclick="openStage('见自己')">
+            <div class="screen-panel" onclick="openStage()">
                 <h2 class="panel-title">见自己</h2>
             </div>
             
             <!-- 第二扇：见天地 -->
-            <div class="screen-panel" onclick="openStage('见天地')">
+            <div class="screen-panel" onclick="openStage()">
                 <h2 class="panel-title">见天地</h2>
             </div>
             
             <!-- 第三扇：见众生 -->
-            <div class="screen-panel" onclick="openStage('见众生')">
+            <div class="screen-panel" onclick="openStage()">
                 <h2 class="panel-title">见众生</h2>
             </div>
         </div>
@@ -164,13 +164,9 @@
         const viewCategories = document.getElementById('view-categories');
         const viewArticles = document.getElementById('view-articles');
         const catButtonsContainer = document.getElementById('category-buttons');
-        let currentStage = '';
 
-        const stageMap = {
-            '见自己': ['今日杂谈', '游记'],
-            '见天地': ['寓言', '糖果屋'],
-            '见众生': ['魔鬼契约']
-        };
+        // 用户的所有分类，不再受限于哪一扇屏风
+        const allCategories = ['今日杂谈', '游记', '寓言', '糖果屋', '魔鬼契约'];
 
         function switchView(hideEl, showEl, setupCallback) {
             hideEl.style.opacity = '0';
@@ -184,12 +180,11 @@
             }, 500);
         }
 
-        function openStage(stage) {
-            currentStage = stage;
+        function openStage() {
+            // 不管点击哪扇门，都打开所有分类。具体什么文章属于“见自己”或“见天地”，由读者在心中自行定义。
             switchView(viewScreen, viewCategories, () => {
-                const categories = stageMap[stage];
                 catButtonsContainer.innerHTML = '';
-                categories.forEach(cat => {
+                allCategories.forEach(cat => {
                     const btn = document.createElement('button');
                     btn.className = 'pill-btn';
                     btn.innerText = cat;

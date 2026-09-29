@@ -271,3 +271,66 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
+// === 自动生成文章目录 (TOC) ===
+document.addEventListener('DOMContentLoaded', () => {
+    const articleContent = document.querySelector('.article-content');
+    if (!articleContent) return;
+
+    const headers = articleContent.querySelectorAll('h2, h3');
+    if (headers.length < 2) return; // 标题太少不需要目录
+
+    const tocContainer = document.createElement('div');
+    tocContainer.className = 'article-toc js-enabled';
+    
+    const tocTitle = document.createElement('div');
+    tocTitle.className = 'toc-title';
+    tocTitle.innerText = '目录';
+    tocContainer.appendChild(tocTitle);
+
+    const tocList = document.createElement('ul');
+    
+    headers.forEach((header, index) => {
+        if (!header.id) {
+            header.id = 'heading-' + index;
+        }
+        
+        const li = document.createElement('li');
+        li.className = 'toc-item toc-' + header.tagName.toLowerCase();
+        
+        const a = document.createElement('a');
+        a.href = '#' + header.id;
+        a.innerText = header.innerText;
+        
+        a.addEventListener('click', (e) => {
+            e.preventDefault();
+            header.scrollIntoView({ behavior: 'smooth' });
+            history.pushState(null, null, '#' + header.id);
+        });
+        
+        li.appendChild(a);
+        tocList.appendChild(li);
+    });
+    
+    tocContainer.appendChild(tocList);
+    
+    // 如果屏幕小，插入到正文前；否则放到 body 下悬浮
+    if (window.innerWidth <= 1250) {
+        articleContent.insertBefore(tocContainer, articleContent.firstChild);
+    } else {
+        document.body.appendChild(tocContainer);
+    }
+    
+    // 监听滚动高亮
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                document.querySelectorAll('.article-toc a').forEach(a => a.classList.remove('active'));
+                const activeLink = document.querySelector(.article-toc a[href="#"]);
+                if (activeLink) activeLink.classList.add('active');
+            }
+        });
+    }, { rootMargin: '0px 0px -80% 0px' });
+    
+    headers.forEach(h => observer.observe(h));
+});

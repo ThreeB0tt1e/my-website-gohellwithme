@@ -1158,3 +1158,68 @@ body.page-transitioning-out {
         font-size: 0.95rem !important;
     }
 }
+
+/* =========================================
+   文章自动目录 (TOC)
+   ========================================= */
+.article-toc {
+    position: fixed;
+    top: 150px;
+    left: max(20px, calc(50% - 620px));
+    width: 220px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    background: transparent;
+    font-family: "Noto Serif SC", serif;
+    opacity: 0;
+    transition: opacity 0.5s;
+    scrollbar-width: none;
+}
+.article-toc::-webkit-scrollbar {
+    display: none;
+}
+.article-toc.visible {
+    opacity: 1;
+}
+.article-toc .toc-title {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+.article-toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.article-toc li {
+    margin-bottom: 12px;
+}
+.article-toc .toc-h3 {
+    padding-left: 15px;
+    font-size: 0.85rem;
+}
+.article-toc a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+    display: block;
+    line-height: 1.5;
+}
+.article-toc a:hover, .article-toc a.active {
+    color: var(--text-color);
+}
+@media (max-width: 1250px) {
+    .article-toc {
+        position: static;
+        width: 100%;
+        margin-bottom: 40px;
+        padding: 20px;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+    }
+}

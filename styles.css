@@ -1094,3 +1094,37 @@ body.page-transitioning-out {
     box-shadow: 0 4px 15px rgba(0,0,0,0.03);
 }
 
+
+/* =========================================
+   沉浸式约束：线香阅读进度条 & 隐藏系统滚动条
+   ========================================= */
+/* 彻底隐藏所有浏览器的丑陋滚动条 */
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+* {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+/* 线香进度条容器 */
+#reading-progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1.5px; /* 极细的一丝 */
+    background: transparent;
+    z-index: 99999;
+    pointer-events: none;
+}
+
+/* 燃烧的线香实体 */
+#reading-progress-thread {
+    height: 100%;
+    width: 0%;
+    background: var(--text-color);
+    opacity: 0.3; /* 若隐若现，不喧宾夺主 */
+    transition: width 0.1s ease-out;
+}

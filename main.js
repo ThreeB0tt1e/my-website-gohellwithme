@@ -221,3 +221,30 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+
+// === 沉浸式约束：线香阅读进度条 (The Reading Thread) ===
+document.addEventListener('DOMContentLoaded', () => {
+    // 创建线香 DOM
+    const progressContainer = document.createElement('div');
+    progressContainer.id = 'reading-progress-container';
+    
+    const progressThread = document.createElement('div');
+    progressThread.id = 'reading-progress-thread';
+    
+    progressContainer.appendChild(progressThread);
+    document.body.appendChild(progressContainer);
+
+    // 监听滚动事件，燃烧线香
+    window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        // 页面总可滚动高度
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        
+        if (scrollHeight > 0) {
+            const progress = (scrollTop / scrollHeight) * 100;
+            progressThread.style.width = progress + '%';
+        } else {
+            progressThread.style.width = '0%';
+        }
+    });
+});

@@ -589,3 +589,116 @@ em, i {
 
 
 
+
+/* === 新增：阅读辅助功能样式 === */
+
+/* 回到顶部按钮 */
+#back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+#back-to-top:hover {
+    background-color: #f3f4f6;
+    transform: translateY(-3px);
+}
+
+/* 移动端调整回到顶部按钮位置 */
+@media (max-width: 768px) {
+    #back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* 上一篇/下一篇导航栏 */
+.article-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color);
+    gap: 20px;
+}
+
+.article-nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: color 0.2s;
+    max-width: 48%;
+}
+
+.article-nav a:hover {
+    color: var(--text-color);
+}
+
+.article-nav .nav-prev {
+    text-align: left;
+}
+
+.article-nav .nav-next {
+    text-align: right;
+    justify-content: flex-end;
+}
+
+.article-nav .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.article-nav .empty {
+    width: 48%;
+}
+
+/* 移动端导航栏改为上下排列 */
+@media (max-width: 600px) {
+    .article-nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .article-nav a {
+        max-width: 100%;
+    }
+    .article-nav .nav-next {
+        justify-content: flex-start;
+        text-align: left;
+    }
+    .article-nav .nav-next .arrow {
+        order: -1;
+        content: "←"; /* 手机上统一用向左指示 */
+    }
+}
+
+/* 鼠标变为放大镜 */
+.article-content img {
+    cursor: zoom-in;
+}

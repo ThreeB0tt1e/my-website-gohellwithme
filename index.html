@@ -1,57 +1,20 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>这行字是标题 - 首页</title>
+    <title>Empathy - 首页</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="landing-page">
-    <nav class="navbar">
-        <div class="container nav-container">
-            <div class="nav-logo">这行字是标题</div>
-                        <button class="nav-toggle" aria-label="Toggle Navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <div class="nav-links">
-                <a href="index.html" class="active">首页</a>
-                <a href="articles.html">目录</a>
-                <a href="books.html">三分钟让你成为文青</a>
-                <a href="characters.html">人物介绍</a>
-                <a href="guestbook.html">留言板</a>
-            </div>
-        </div>
-    </nav>
-
     <main class="hero">
         <div class="hero-content">
+            <div class="empathy-title">Empathy</div>
             <h1>Say Yes To Heaven，Say Yes To me</h1>
-            <p>这里应该输入文本，但是还在测试阶段</p>
             <div class="hero-buttons">
-                <a href="articles.html" class="btn btn-primary">开始阅读</a>
-                <a href="guestbook.html" class="btn btn-outline">去留言板</a>
+                <a href="articles.html" class="enter-link">⸺ 进入 ⸺</a>
             </div>
         </div>
     </main>
-
-    <footer>
-        <div class="container">
-            <p>© 2026 这行字是标题. 保留所有权利。</p>
-        </div>
-    </footer>
-    <script>
-        // 鎵嬫満绔鑸爮鍒囨崲閫昏緫
-        const navToggle = document.querySelector('.nav-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        if (navToggle) {
-            navToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('show');
-                navToggle.classList.toggle('active');
-            });
-        }
-    </script>
 </body>
 </html>
-

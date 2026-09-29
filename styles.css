@@ -1,9 +1,10 @@
-:root {
-    --primary-color: #2563eb;
-    --text-color: #333333;
-    --bg-color: #f9fafb;
+﻿:root {
+    --primary-color: #333333;
+    --text-color: #1a1a1a;
+    --text-muted: #666666;
+    --bg-color: #fdfdfd;
     --card-bg: #ffffff;
-    --border-color: #e5e7eb;
+    --border-color: #eaeaea;
 }
 
 * {
@@ -13,8 +14,8 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    line-height: 1.6;
+    font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", "SimSun", serif;
+    line-height: 1.8;
     color: var(--text-color);
     background-color: var(--bg-color);
 }
@@ -494,3 +495,74 @@ footer {
         font-size: 1.4rem;
     }
 }
+
+
+/* === 新增的高级感与魔鬼契约主题样式 === */
+
+/* 斜体文字样式 */
+em, i {
+    font-style: italic;
+    font-family: "Georgia", "Times New Roman", "STKaiti", "KaiTi", serif;
+    color: #4a4a4a;
+    letter-spacing: 1px;
+}
+
+/* 文章内部图片样式 */
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin: 20px auto;
+    display: block;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* 首页 Empathy 标题 */
+.empathy-title {
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 5rem;
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.03);
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -80%);
+    z-index: -1;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+/* 首页 Say Yes 标题 */
+.hero h1 {
+    font-weight: 300;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+/* 进入链接 */
+.enter-link {
+    display: inline-block;
+    font-size: 1.1rem;
+    color: #666;
+    letter-spacing: 4px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-style: italic;
+}
+
+.enter-link:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .empathy-title {
+        font-size: 3rem;
+        transform: translate(-50%, -100%);
+    }
+}
+

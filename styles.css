@@ -864,3 +864,39 @@ body.page-transitioning-out {
     0% { opacity: 1; }
     100% { opacity: 0; transform: translateY(-10px); }
 }
+
+/* === 连载专属浮动目录按钮 === */
+#toc-btn {
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+#toc-btn:hover {
+    transform: scale(1.1);
+    color: #fff;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    #toc-btn {
+        bottom: 70px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+    }
+}

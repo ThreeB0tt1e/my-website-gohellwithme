@@ -42,8 +42,8 @@
 
     <main class="container">
         <div class="article-content js-enabled">
-            <h2>主理人的私人书单</h2>
-            <p>这里没有长篇大论的严肃书评，只有一些极其私人的阅读碎片。</p>
+            <h2>被折角的书页</h2>
+            <p>一些零碎的阅读痕迹，和不可救药的摘抄癖。</p>
             <p>如果你刚好也读过这些书，或者有什么极其想分享的句子，欢迎在最下方的评论区随意留言。带上图片、带上情绪，都可以，不需要拘泥于任何格式。</p>
             
             <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--border-color);">
@@ -63,10 +63,13 @@
         twikoo.init({
             envId: 'https://twikoo.gohellwithme.xyz/api', // 替换为你的 envId
             el: '#tcomment',
+            path: '/my-website-gohellwithme' + (window.location.pathname === '/' ? '/index.html' : window.location.pathname),
         })
     </script>
     <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" async></script>
     <script src="main.js"></script>
 </body>
 </html>
+
+
 

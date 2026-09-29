@@ -918,64 +918,87 @@ body.page-transitioning-out {
     margin-left: 10px;
 }
 
+/* 屏风外框 */
 .folding-screen-container {
     display: flex;
     width: 100%;
-    height: 50vh;
-    min-height: 350px;
-    gap: 4px;
+    height: 55vh;
+    min-height: 400px;
+    gap: 0; /* 无缝相连 */
     margin-bottom: 60px;
-    background: transparent;
-    border-radius: 8px;
-    overflow: hidden;
+    border: 6px solid var(--text-color); /* 粗重边框模拟实木框架 */
+    padding: 2px;
+    background: var(--text-color);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1); /* 整体在地面的投影 */
 }
 
+/* 屏风单扇纸面 */
 .screen-panel {
     flex: 1;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
+    background: var(--bg-color); /* 纸面颜色 */
+    border-right: 1px solid rgba(0,0,0,0.1); /* 折痕处的缝隙 */
     position: relative;
     cursor: default;
-    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), background 0.3s ease;
+    transition: flex 0.8s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.8s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border-radius: 4px;
+    /* 奇数扇阴影：左亮右暗，模拟折叠角度 */
+    box-shadow: inset -15px 0 20px rgba(0,0,0,0.04), inset 15px 0 20px rgba(255,255,255,0.8);
+}
+.screen-panel:last-child {
+    border-right: none;
+}
+/* 偶数扇阴影反转，形成 \/ 折叠感 */
+.screen-panel:nth-child(even) {
+    box-shadow: inset 15px 0 20px rgba(0,0,0,0.04), inset -15px 0 20px rgba(255,255,255,0.8);
 }
 
-/* 悬停展开 */
+/* 暗黑模式下的阴影适配 */
+[data-theme="dark"] .screen-panel {
+    box-shadow: inset -15px 0 20px rgba(0,0,0,0.4), inset 15px 0 20px rgba(255,255,255,0.02);
+}
+[data-theme="dark"] .screen-panel:nth-child(even) {
+    box-shadow: inset 15px 0 20px rgba(0,0,0,0.4), inset -15px 0 20px rgba(255,255,255,0.02);
+}
+
+/* 悬停展开时，折叠被抚平 */
 .screen-panel:hover {
-    flex: 2.5;
-    background: var(--bg-color);
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
+    flex: 3;
+    background: var(--card-bg);
+    box-shadow: inset -2px 0 10px rgba(0,0,0,0.01), inset 2px 0 10px rgba(255,255,255,0.1) !important;
 }
 
+/* 竖排大字 */
 .panel-title {
     writing-mode: vertical-rl;
     text-orientation: upright;
-    font-size: 1.8rem;
-    letter-spacing: 0.4em;
+    font-size: 2.2rem;
+    letter-spacing: 0.5em;
     font-family: "Noto Serif SC", serif;
     color: var(--text-color);
-    transition: all 0.6s ease;
+    transition: all 0.8s ease;
     margin: 0;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.05); /* 文字轻微浮雕感 */
 }
 
 .screen-panel:hover .panel-title {
-    opacity: 0.1;
-    transform: translateX(-50px);
+    opacity: 0.05; /* 展开后大字化作背景暗纹 */
+    transform: translateX(-80px) scale(1.5);
 }
 
+/* 内部按钮选项 */
 .panel-options {
     position: absolute;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     opacity: 0;
     transform: translateY(20px);
-    transition: all 0.5s ease;
+    transition: all 0.6s ease;
     pointer-events: none;
+    z-index: 2;
 }
 
 .screen-panel:hover .panel-options {
@@ -985,25 +1008,26 @@ body.page-transitioning-out {
     transition-delay: 0.2s;
 }
 
-/* 修改原来的 filter-btn 样式以适应屏风 */
 .panel-options .filter-btn {
     background: transparent;
-    border: 1px solid var(--border-color);
+    border: none;
+    border-bottom: 1px solid var(--border-color);
     color: var(--text-color);
-    padding: 12px 25px;
-    font-size: 1rem;
-    border-radius: 30px;
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    border-radius: 0;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     font-family: "Noto Serif SC", serif;
+    letter-spacing: 2px;
 }
 
 .panel-options .filter-btn:hover,
 .panel-options .filter-btn.active {
-    background: var(--primary-color);
-    color: #fff;
-    border-color: var(--primary-color);
-    transform: scale(1.05);
+    background: transparent;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+    transform: translateX(10px); /* 悬停时向右微移，非常有格调 */
 }
 
 /* 隐藏文章列表直到选择 */
@@ -1018,3 +1042,4 @@ body.page-transitioning-out {
     transform: translateY(0);
     display: grid;
 }
+

@@ -270,7 +270,8 @@ footer {
     letter-spacing: 2px;
     margin-bottom: 50px;
     position: relative;
-    font-family: "Dancing Script", "Apple Chancery", cursive;
+    font-family: 'Playfair Display', 'Times New Roman', serif;
+    font-style: italic;
 }
 
 .hero p {
@@ -389,7 +390,8 @@ footer {
     letter-spacing: 2px;
     margin-bottom: 50px;
     position: relative;
-    font-family: "Dancing Script", "Apple Chancery", cursive;
+    font-family: 'Playfair Display', 'Times New Roman', serif;
+    font-style: italic;
 }
 
     .hero p {
@@ -478,7 +480,8 @@ footer {
     letter-spacing: 2px;
     margin-bottom: 50px;
     position: relative;
-    font-family: "Dancing Script", "Apple Chancery", cursive;
+    font-family: 'Playfair Display', 'Times New Roman', serif;
+    font-style: italic;
 }
 
     .hero-buttons .btn {
@@ -553,7 +556,8 @@ em, i {
     letter-spacing: 2px;
     margin-bottom: 50px;
     position: relative;
-    font-family: "Dancing Script", "Apple Chancery", cursive;
+    font-family: 'Playfair Display', 'Times New Roman', serif;
+    font-style: italic;
 }
 
 /* 进入链接 */
@@ -578,6 +582,7 @@ em, i {
         transform: translate(-50%, -100%);
     }
 }
+
 
 
 

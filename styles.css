@@ -270,6 +270,7 @@ footer {
     letter-spacing: 2px;
     margin-bottom: 50px;
     position: relative;
+    font-family: "Snell Roundhand", "Edwardian Script ITC", "Vivaldi", "Great Vibes", "Dancing Script", cursive;
 }
 
 .hero p {
@@ -388,6 +389,7 @@ footer {
     letter-spacing: 2px;
     margin-bottom: 50px;
     position: relative;
+    font-family: "Snell Roundhand", "Edwardian Script ITC", "Vivaldi", "Great Vibes", "Dancing Script", cursive;
 }
 
     .hero p {
@@ -476,6 +478,7 @@ footer {
     letter-spacing: 2px;
     margin-bottom: 50px;
     position: relative;
+    font-family: "Snell Roundhand", "Edwardian Script ITC", "Vivaldi", "Great Vibes", "Dancing Script", cursive;
 }
 
     .hero-buttons .btn {
@@ -550,6 +553,7 @@ em, i {
     letter-spacing: 2px;
     margin-bottom: 50px;
     position: relative;
+    font-family: "Snell Roundhand", "Edwardian Script ITC", "Vivaldi", "Great Vibes", "Dancing Script", cursive;
 }
 
 /* 进入链接 */
@@ -574,6 +578,7 @@ em, i {
         transform: translate(-50%, -100%);
     }
 }
+
 
 
 

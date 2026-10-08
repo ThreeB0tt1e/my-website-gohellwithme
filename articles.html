@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>目录 - Empathy</title>
-    <link rel="stylesheet" href="styles.css?v=202610081830">
+    <link rel="stylesheet" href="styles.css?v=1791455364">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
     <style>
         /* Editorial Archive List Styles */
@@ -181,6 +181,18 @@
             const archiveContainer = document.querySelector('.archive-container');
             const archiveItems = document.querySelectorAll('.archive-item');
             
+            // UX: Only require wiping once per session
+            if (sessionStorage.getItem('empathy_veil_cleared') === 'true') {
+                if (overlay) overlay.remove();
+                if (hint) hint.remove();
+                archiveContainer.style.display = 'block';
+                gsap.fromTo(archiveItems, 
+                    { opacity: 0, y: 15 },
+                    { opacity: 1, y: 0, duration: 0.6, stagger: 0.05, ease: 'power2.out' }
+                );
+                return;
+            }
+            
             if (!canvas) return;
             const ctx = canvas.getContext('2d', { willReadFrequently: true });
             
@@ -204,7 +216,6 @@
             window.addEventListener('resize', resize);
             resize();
             
-            // Show the underlying content immediately so it's there when wiped
             archiveContainer.style.display = 'block';
             
             let isDrawing = false;
@@ -222,7 +233,6 @@
             function erase(x, y) {
                 if (veilRemoved) return;
                 
-                // Track mouse distance to estimate erase percentage
                 if (lastPos) {
                     const dx = x - lastPos.x;
                     const dy = y - lastPos.y;
@@ -231,7 +241,7 @@
                 lastPos = {x, y};
                 
                 ctx.globalCompositeOperation = 'destination-out';
-                const radius = window.innerWidth < 768 ? 60 : 100; // Smaller brush on mobile
+                const radius = window.innerWidth < 768 ? 60 : 100;
                 const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
                 gradient.addColorStop(0, 'rgba(0,0,0,1)');
                 gradient.addColorStop(0.5, 'rgba(0,0,0,0.8)');
@@ -242,7 +252,6 @@
                 ctx.arc(x, y, radius, 0, Math.PI * 2);
                 ctx.fill();
                 
-                // If user scrubbed enough distance (approx. 4000 pixels of movement)
                 const threshold = window.innerWidth < 768 ? 2000 : 4000;
                 if (totalErasedPixels > threshold && !veilRemoved) {
                     removeVeil();
@@ -251,9 +260,11 @@
             
             function removeVeil() {
                 veilRemoved = true;
-                overlay.style.pointerEvents = 'none'; // stop capturing events
+                overlay.style.pointerEvents = 'none';
                 
-                // Cinematic fade out of the fog
+                // Record that user has cleared it this session
+                sessionStorage.setItem('empathy_veil_cleared', 'true');
+                
                 gsap.to([overlay, hint], {
                     opacity: 0,
                     duration: 1.5,
@@ -264,19 +275,16 @@
                     }
                 });
                 
-                // Cinematic stagger reveal of the archive items
                 gsap.fromTo(archiveItems, 
                     { y: 50, opacity: 0 },
                     { y: 0, opacity: 1, duration: 1.2, stagger: 0.1, ease: 'power3.out', delay: 0.2 }
                 );
             }
             
-            // Mouse Events
             overlay.addEventListener('mousedown', (e) => { isDrawing = true; lastPos = null; erase(e.clientX, e.clientY); });
             overlay.addEventListener('mousemove', (e) => { if (isDrawing) erase(e.clientX, e.clientY); });
             window.addEventListener('mouseup', () => { isDrawing = false; lastPos = null; });
             
-            // Touch Events (Mobile)
             overlay.addEventListener('touchstart', (e) => { isDrawing = true; lastPos = null; const p = getPos(e); erase(p.x, p.y); });
             overlay.addEventListener('touchmove', (e) => { if (isDrawing) { e.preventDefault(); const p = getPos(e); erase(p.x, p.y); } }, {passive: false});
             window.addEventListener('touchend', () => { isDrawing = false; lastPos = null; });

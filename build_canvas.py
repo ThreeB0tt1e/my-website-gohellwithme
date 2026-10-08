@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+import os
+import re
+
+directory = 'd:/article-sharing-site'
+articles_path = os.path.join(directory, 'articles.html')
+
+# 1. Rewrite articles.html to be the clean Editorial Archive + Canvas Veil
+new_articles_html = '''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -284,3 +291,7 @@
     </script>
 </body>
 </html>
+'''
+
+with open(articles_path, 'w', encoding='utf-8') as f:
+    f.write(new_articles_html)

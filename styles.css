@@ -1223,3 +1223,14 @@ body.page-transitioning-out {
         border-radius: 4px;
     }
 }
+
+/* =========================================
+   Awwwards Quality: Reveal & Parallax
+   ========================================= */
+/* 防止动画加载前闪烁 */
+.awwwards-reveal {
+    opacity: 0;
+}
+.split-line {
+    overflow: hidden;
+}

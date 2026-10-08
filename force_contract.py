@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+contract_content = '''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>魔鬼契约 - Empathy</title>
-    <link rel="stylesheet" href="styles.css?v=1791454662">
+    <link rel="stylesheet" href="styles.css?v=202610081627">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
     <style>
         .book-cover {
@@ -128,10 +128,10 @@
         </div>
     </main>
 
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/split-type"></script>
-<script src="main.js?v=1791454662"></script>
+    <script src="main.js?v=202610081627"></script>
 </body>
 </html>
+'''
+
+with open('d:/article-sharing-site/contract.html', 'w', encoding='utf-8') as f:
+    f.write(contract_content)

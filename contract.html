@@ -1,17 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>魔鬼契约 (Empathy) - 专属连载</title>
-    <meta name="robots" content="noindex, nofollow">
-    <meta property="og:title" content="Empathy">
-    <meta property="og:description" content="”pathy”意思是「感覺」，empathy的字首”em”是「在裡面」的意思，你的「同理」就像在對方心裡頭的感受">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://gohellwithme.xyz/">
-    <meta property="og:image" content="https://gohellwithme.xyz/cover.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="stylesheet" href="styles.css?v=1791447679">
+    <title>魔鬼契约 - Empathy</title>
+    <link rel="stylesheet" href="styles.css?v=202610081627">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
     <style>
         .book-cover {
@@ -43,38 +36,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 25px;
+            padding: 20px;
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            border-radius: 4px;
             text-decoration: none;
             color: var(--text-color);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         .chapter-item:hover {
-            transform: translateX(10px);
-            border-color: var(--primary-color);
+            transform: translateX(5px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         .chapter-num {
-            font-size: 0.9rem;
-            color: var(--text-muted);
             font-family: 'Playfair Display', serif;
-            font-style: italic;
-            width: 80px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
         .chapter-title {
-            flex-grow: 1;
-            font-size: 1.2rem;
             font-weight: 500;
-        }
-        .chapter-arrow {
-            color: var(--primary-color);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .chapter-item:hover .chapter-arrow {
-            opacity: 1;
         }
     </style>
 </head>
@@ -99,77 +79,55 @@
     </nav>
 
     <main class="container">
-        <div class="book-cover js-enabled">
-            <h1 style="margin-bottom: 10px; letter-spacing: 0.2em;">魔鬼契约</h1>
-            
-            <div style="display: flex; flex-direction: column; align-items: center; margin-top: 40px; gap: 35px;">
-                
-                <!-- 模块 1：词典释义感 (视觉上解释 Empathy) -->
-                <div style="max-width: 550px; text-align: justify; text-align-last: center; color: var(--text-muted); font-size: 0.95rem; line-height: 1.8;">
-                    <div style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--text-color); margin-bottom: 15px; font-style: italic;">
-                        Empathy
-                    </div>
-                    ”pathy”意思是「感覺」，empathy的字首”em”是「在裡面」的意思，你的「同理」就像在對方心裡頭的感受
-                </div>
-                
-                <!-- 模块 2：视觉分割线 -->
-                <div style="width: 30px; height: 1px; background: var(--text-muted); opacity: 0.4;"></div>
-                
-                <!-- 模块 3：作者题记感 (回归魔鬼契约本身) -->
-                <div style="max-width: 550px; color: var(--text-color); font-size: 1.05rem; line-height: 1.8; font-style: italic;">
-                    “我不会写怪谈，只能如实记录真实的世界，这只能算日记了。”
-                </div>
-                
-            </div>
-        </div>
+        <nav class="breadcrumb" style="margin-top: 20px;">
+            <a href="articles.html#categories">全部分类</a> / <a href="articles.html#cat-contract">← 返回 连载系列</a>
+        </nav>
+
+        <div class="book-cover">
+            <h1>魔鬼契约</h1>
+            <p>Empathy，意思是“共情”。但在魔鬼的契约里，共情往往是深渊的开始。</p>
         </div>
 
-        <div class="chapter-list js-enabled">
-            <a href="hell.html" class="chapter-item">
-                <span class="chapter-num">Prologue</span>
-                <span class="chapter-title">序言：魔鬼契约</span>
-                <span class="chapter-arrow">→</span>
+        <div class="chapter-list">
+            <a href="devil_1.html" class="chapter-item">
+                <span class="chapter-title">魔鬼契约 序</span>
+                <span style="color: var(--text-muted);">→</span>
             </a>
-            <a href="2.html" class="chapter-item">
-                <span class="chapter-num">Chapter II</span>
+            <a href="devil_2.html" class="chapter-item">
+                <span class="chapter-title">魔鬼契约 1</span>
+                <span style="color: var(--text-muted);">→</span>
+            </a>
+            <a href="devil_3.html" class="chapter-item">
                 <span class="chapter-title">魔鬼契约 2</span>
-                <span class="chapter-arrow">→</span>
+                <span style="color: var(--text-muted);">→</span>
             </a>
-            <a href="3.html" class="chapter-item">
-                <span class="chapter-num">Chapter III</span>
-                <span class="chapter-title">清道夫</span>
-                <span class="chapter-arrow">→</span>
+            <a href="devil_4.html" class="chapter-item">
+                <span class="chapter-title">魔鬼契约 3——清道夫</span>
+                <span style="color: var(--text-muted);">→</span>
             </a>
-            <a href="4.html" class="chapter-item">
-                <span class="chapter-num">Chapter IV</span>
+            <a href="devil_5.html" class="chapter-item">
+                <span class="chapter-title">魔鬼契约——番外</span>
+                <span style="color: var(--text-muted);">→</span>
+            </a>
+            <a href="devil_6.html" class="chapter-item">
                 <span class="chapter-title">魔鬼契约 4</span>
-                <span class="chapter-arrow">→</span>
+                <span style="color: var(--text-muted);">→</span>
             </a>
-            <a href="5.html" class="chapter-item">
-                <span class="chapter-num">Chapter V</span>
-                <span class="chapter-title">忍者</span>
-                <span class="chapter-arrow">→</span>
+            <a href="devil_7.html" class="chapter-item">
+                <span class="chapter-title">魔鬼契约 5 忍者 上</span>
+                <span style="color: var(--text-muted);">→</span>
             </a>
-            <a href="fanwai.html" class="chapter-item">
-                <span class="chapter-num">Extra</span>
-                <span class="chapter-title">番外篇</span>
-                <span class="chapter-arrow">→</span>
+            <a href="devil_8.html" class="chapter-item">
+                <span class="chapter-title">魔鬼契约 5 忍者 中</span>
+                <span style="color: var(--text-muted);">→</span>
+            </a>
+            <a href="devil_9.html" class="chapter-item">
+                <span class="chapter-title">魔鬼契外（6）贱人命长</span>
+                <span style="color: var(--text-muted);">→</span>
             </a>
         </div>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>© 2026 Empathy. 保留所有权利，包括保持沉默的权利，也感谢您的凝视。</p>
-        </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" async></script>
-    <script src="main.js?v=1790708022"></script>
+    <script src="main.js?v=202610081627"></script>
 </body>
 </html>
-
-
-
-
-
-

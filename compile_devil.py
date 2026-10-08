@@ -121,7 +121,7 @@ text = '''## 魔鬼契约 序
 影视作品一般是不允许演员直视镜头的，如果有文字的视频格式，我现在可能在看你的眼睛，如果是我的话，看的会是眉毛，直视对于脆弱的人还是有些冒犯。
 我的傲慢如果被不喜欢这样品质的人发现了，我是不会装孙子的，只会窃喜。详见“不是每个人都喜欢做梦”第七段。
 
-## 魔鬼契约 5 忍者
+## 魔鬼契约 5 忍者 上
 免责协议声明：
 本篇出现的角色如果你是第一次看，那说的绝对不是你
 如有雷同，纯属巧合
@@ -138,6 +138,7 @@ text = '''## 魔鬼契约 序
 
 我只是还没遇到属于我的，成为忍者的机会。
 
+## 魔鬼契约 5 忍者 中
 忍者的服从性测试
 
 我因为红玫瑰和耀祖玩感受到：如果我不喜欢朋友的朋友，那我要用什么态度面对。我当然知道我没办法影响除了我自己之外任何人，但是我没办法处理。
@@ -200,7 +201,6 @@ for line in text.split('\n'):
 if current_chapter:
     chapters.append('\n'.join(current_chapter))
 
-files = ['devil_1.html', 'devil_2.html', 'devil_3.html', 'devil_fanwai.html', 'devil_4.html', 'devil_5.html', 'devil_6.html']
 titles = []
 
 template = '''<!DOCTYPE html>
@@ -254,7 +254,8 @@ for i, chap_text in enumerate(chapters):
     lines = chap_text.split('\n')
     header_line = lines[0]
     title = header_line.replace('## ', '').strip()
-    titles.append((title, files[i]))
+    filename = f'devil_{i+1}.html'
+    titles.append((title, filename))
     
     body_lines = lines[1:]
     html_parts = []
@@ -268,7 +269,7 @@ for i, chap_text in enumerate(chapters):
     html_content = '\n'.join(html_parts)
     page_html = template.replace('{title}', title).replace('{content}', html_content)
     
-    with open(f'd:/article-sharing-site/{files[i]}', 'w', encoding='utf-8') as f:
+    with open(f'd:/article-sharing-site/{filename}', 'w', encoding='utf-8') as f:
         f.write(page_html)
 
 # Now rewrite contract.html directory
